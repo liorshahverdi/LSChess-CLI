@@ -4,10 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ChessView extends JFrame {
-	private static final int WIDTH = 850;
+	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 850;
 	private static JPanel gui_board;
 	public ImageIcon black_tile, white_tile;
+	public JTextField tf; 
 
 	public ChessView(){
 		setTitle("LS Chess Game");
@@ -27,6 +28,10 @@ public class ChessView extends JFrame {
 
 		gui_board = drawInitialGUIBoard();
 		temp.add(gui_board);
+
+		tf = new JTextField("Im right here");
+		tf.setEditable(false);
+		temp.add(tf);
 
 		return temp;
 	}
