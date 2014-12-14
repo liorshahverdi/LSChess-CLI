@@ -13,6 +13,7 @@ public class Board{
 	public Tile[][] getBoard() { return grid; }
 
 	public void printBoard(){
+		System.out.println("-------------------------------------------------------------------------");
 		for (Tile[] row : grid)
 		{
 			System.out.print("|\t");
@@ -23,5 +24,6 @@ public class Board{
 		    }
 		    System.out.print("|\n");
 		}
+		System.out.println("-------------------------------------------------------------------------");
 	}
 }
