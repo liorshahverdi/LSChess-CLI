@@ -1,29 +1,46 @@
 public class CG{
-	public char[][] board;
+	public String[][] board;
 
 	public CG(){
-		board = new char[8][8];
-		initialize();
-		printBoard(board);
+		board = new String[][]{
+			{"c","n","b","q","k","b","n","c"},
+			{"p","p","p","p","p","p","p","p"},
+			{"-","-","-","-","-","-","-","-"},
+			{"-","-","-","-","-","-","-","-"},
+			{"-","-","-","-","-","-","-","-"},
+			{"-","-","-","-","-","-","-","-"},
+			{"p","p","p","p","p","p","p","p"},
+			{"c","n","b","q","k","b","n","c"}
+		};
+		printMat(board);
 	}
 
-	public void initialize(){
-		board[0][0]='c'; board[0][1]='n'; board[0][2]='b'; board[0][3]='q'; 
-		board[0][4]='k'; board[0][5]='b'; board[0][6]='n'; board[0][7]='c';
+	private enum ChessPiece{
+		//possible pieces (or empty) tiles
+		CASTLE("c"), KNIGHT("n"), BISHOP("b"), QUEEN("q"), KING("k"), PAWN("p"), EMPTY("-"); 
+	
+		private String str;
 
-		board[1][0]='p'; board[1][1]='p'; board[1][2]='p'; board[1][3]='p'; 
-		board[1][4]='p'; board[1][5]='p'; board[1][6]='p'; board[1][7]='p';
+		private ChessPiece(String s){
+			this.str = s;
+		}
+
+		//String representation of enum type
+		private String getStr(){
+    		return str;
+		}
 	}
 
-	public void printBoard(char[][] b){
+	public static void printMat(String[][] x)
+	{
 		System.out.println("-------------------------------------------------------------------------");
-		for (char[] row : board)
+		for (String[] row : x)
 		{
 			System.out.print("|\t");
-		    for (char x : row)
+		    for (String value : row)
 		    {
-		    	if (x == ' ') System.out.print("-\t");
-		    	else System.out.print(x+"\t");
+		    	if (value.equals("-")) System.out.print("-\t");
+		    	else System.out.print(value+"\t");
 		    }
 		    System.out.print("|\n");
 		}
@@ -31,6 +48,6 @@ public class CG{
 	}
 
 	public static void main(String[] args){
-		CG mine = new CG();
+		CG m = new CG();
 	}
 }
