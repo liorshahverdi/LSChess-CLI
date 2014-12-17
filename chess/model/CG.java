@@ -37,17 +37,23 @@ public class CG{
 		private static ArrayList<Properties> possibleMoves(){
 			ArrayList<Properties> temp = new ArrayList<Properties>();
 
-			int num_whites = 0;
-			int num_blacks = 0;
+			boolean white_turn = false;
+			boolean black_turn = false;
+
+			if (cp%2 == 0) black_turn = true;
+			else white_turn = true;
+
 			for (String[] row : board){
 				for (String x : row){
 					ChessPiece thisPiece = ChessPiece.getEnum(x);
-					if (isWhite(thisPiece)) num_whites++;
-					if (isBlack(thisPiece)) num_blacks++;
+					if (white_turn){
+						if (!isWhite(thisPiece)) continue;
+					}
+					if (black_turn){
+						if (!isBlack(thisPiece)) continue;
+					}
 				}
 			}
-
-			System.out.println("b="+num_blacks+"\tw="+num_whites);
 
 			return temp;
 		}
@@ -97,7 +103,7 @@ public class CG{
 		while(play){
 			System.out.println(currentPlayer(cp));
 			printMat(board);
-			ArrayList<Properties> p = ChessPiece.possibleMoves();
+			//ArrayList<Properties> p = ChessPiece.possibleMoves();
 			cp++;
 			play = false;
 		}
