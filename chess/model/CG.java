@@ -59,9 +59,19 @@ public class CG{
 					if (white_turn){
 						if (!isWhite(thisPiece));//CAN'T LEAVE LIKE THIS
 						if (thisPiece == ChessPiece.WHITE_PAWN){
-							String now = "locn = "+convertToCoords(i);
+							String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
+							
+							char c = ChessPiece.convertToCoords(i).charAt(0);
+							char r = ChessPiece.convertToCoords(i).charAt(1);
 
-							temp.add(now);
+							int offset = toGridFormat(c,r);
+							
+							String candr = c+" "+r;
+							//check in front
+
+
+
+							temp.add(candr);
 						}
 						if (thisPiece == ChessPiece.WHITE_CASTLE){
 							String now = "I'm a white castle";
@@ -217,6 +227,15 @@ public class CG{
 			else if (i==63) temp="h1";
 			return temp;
 		}
+
+		private static int toGridFormat(char col, char row){
+			int locn=0;int base =0;int offset=0;
+			if (row=='2') {
+				base = 6;
+				System.out.println("b = "+base);
+			}
+			return base;
+		}
 	}
 
 	private static void printMat(String[][] x)
@@ -235,6 +254,11 @@ public class CG{
 		System.out.println("-------------------------------------------------------------------------");
 	}
 
+	private static String currentPlayer(int c){
+		if (c%2 == 0) return "Black's Turn";
+		else return "White's Turn";
+	}
+
 	private static void startGame(){
 		boolean play = true;
 		while(play){
@@ -247,11 +271,6 @@ public class CG{
 		}
 		//ArrayList<Properties> p = ChessPiece.possibleMoves();
 		//System.out.println(currentPlayer(cp));
-	}
-
-	private static String currentPlayer(int c){
-		if (c%2 == 0) return "Black's Turn";
-		else return "White's Turn";
 	}
 
 	public static void main(String[] args){ CG m = new CG(); }
