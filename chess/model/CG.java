@@ -1,37 +1,46 @@
 import java.util.Properties;
 import java.util.ArrayList;
 public class CG{
-	public String[][] board;
+	public static String[][] board;
 
 	public CG(){
 		board = new String[][]{
-			{"c","n","b","q","k","b","n","c"},
-			{"p","p","p","p","p","p","p","p"},
+			{"w_c","w_n","w_b","w_k","w_q","w_b","w_n","w_c"},
+			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
 			{"-","-","-","-","-","-","-","-"},
 			{"-","-","-","-","-","-","-","-"},
 			{"-","-","-","-","-","-","-","-"},
 			{"-","-","-","-","-","-","-","-"},
-			{"p","p","p","p","p","p","p","p"},
-			{"c","n","b","q","k","b","n","c"}
+			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
+			{"b_c","b_n","b_b","b_k","b_q","b_b","b_n","b_c"}
 		};
-		printMat(board);
-		//startGame();
+		//printMat(board);
+		startGame();
 	}
 
 	private enum ChessPiece{
 		//possible pieces (or empty) tiles
-		CASTLE("c"), KNIGHT("n"), BISHOP("b"), QUEEN("q"), KING("k"), PAWN("p"), EMPTY("-"); 
+		WHITE_CASTLE("w_c"), WHITE_KNIGHT("w_n"), WHITE_BISHOP("w_b"), WHITE_QUEEN("w_q"), WHITE_KING("w_k"), WHITE_PAWN("w_p"),
+		BLACK_CASTLE("b_c"), BLACK_KNIGHT("b_n"), BLACK_BISHOP("b_b"), BLACK_QUEEN("b_q"), BLACK_KING("b_k"), BLACK_PAWN("b_p"), 
+		EMPTY("-"); 
 	
 		private String str;
 		private ChessPiece(String s){this.str = s;}
 		//String representation of enum type
 		private String getStr(){return str;}
 
-		private ArrayList<Properties> possibleMoves(){
+		private static ArrayList<Properties> possibleMoves(){
 			ArrayList<Properties> temp = new ArrayList<Properties>();
 
-			
-			
+			int num_empty_tiles = 0;
+
+			for (String[] row : board){
+				for (String x : row){
+					ChessPiece thisPiece = ChessPiece.getEnum(x);
+					System.out.println("enum="+thisPiece);
+				}
+			}
+
 			return temp;
 		}
 
@@ -62,6 +71,8 @@ public class CG{
 	private static void startGame(){
 		boolean play = false;
 		while(play){}
+
+		ArrayList<Properties> p = ChessPiece.possibleMoves();
 	}
 
 	public static void main(String[] args){ CG m = new CG(); }
