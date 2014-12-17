@@ -1,3 +1,5 @@
+import java.util.Properties;
+import java.util.ArrayList;
 public class CG{
 	public String[][] board;
 
@@ -13,6 +15,7 @@ public class CG{
 			{"c","n","b","q","k","b","n","c"}
 		};
 		printMat(board);
+		//startGame();
 	}
 
 	private enum ChessPiece{
@@ -20,18 +23,27 @@ public class CG{
 		CASTLE("c"), KNIGHT("n"), BISHOP("b"), QUEEN("q"), KING("k"), PAWN("p"), EMPTY("-"); 
 	
 		private String str;
+		private ChessPiece(String s){this.str = s;}
+		//String representation of enum type
+		private String getStr(){return str;}
 
-		private ChessPiece(String s){
-			this.str = s;
+		private ArrayList<Properties> possibleMoves(){
+			ArrayList<Properties> temp = new ArrayList<Properties>();
+
+			
+			
+			return temp;
 		}
 
-		//String representation of enum type
-		private String getStr(){
-    		return str;
+		private static ChessPiece getEnum(String str) {
+			for (ChessPiece t: ChessPiece.values()){
+				if (str.equals(t.getStr())) return t;
+			}
+			return null;
 		}
 	}
 
-	public static void printMat(String[][] x)
+	private static void printMat(String[][] x)
 	{
 		System.out.println("-------------------------------------------------------------------------");
 		for (String[] row : x)
@@ -47,7 +59,10 @@ public class CG{
 		System.out.println("-------------------------------------------------------------------------");
 	}
 
-	public static void main(String[] args){
-		CG m = new CG();
+	private static void startGame(){
+		boolean play = false;
+		while(play){}
 	}
+
+	public static void main(String[] args){ CG m = new CG(); }
 }
