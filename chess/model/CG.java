@@ -23,7 +23,7 @@ public class CG{
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"b_p"},
-			{"-",  "-",  "-",  "-",  "-"  ,"-"  ,"w_p","-"},
+			{"-",  "w_p",  "-",  "-",  "-"  ,"-"  ,"w_p","-"},
 			{"-","-","-","-","-","-","-","-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
@@ -59,19 +59,15 @@ public class CG{
 					if (white_turn){
 						if (!isWhite(thisPiece));//CAN'T LEAVE LIKE THIS
 						if (thisPiece == ChessPiece.WHITE_PAWN){
-							String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
-							
-							char c = ChessPiece.convertToCoords(i).charAt(0);
-							char r = ChessPiece.convertToCoords(i).charAt(1);
-
-							int offset = toGridFormat(c,r);
-							
-							String candr = c+" "+r;
+							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
+							String t="";
+							char c_char = ChessPiece.convertToCoords(i).charAt(0);
+							char r_char = ChessPiece.convertToCoords(i).charAt(1);
+							int c = toGridFormat(c_char);
+							int r = toGridFormat(r_char);
 							//check in front
 
-
-
-							temp.add(candr);
+							temp.add(t);
 						}
 						if (thisPiece == ChessPiece.WHITE_CASTLE){
 							String now = "I'm a white castle";
@@ -228,49 +224,16 @@ public class CG{
 			return temp;
 		}
 
-		private static int toGridFormat(char col, char row){
-			int base =0;int offset=0;
-			/*if (row=='2') {
-				base = 6;
-			}*/
-			switch(row){
-				case '1':{
-					base = 7;
-				}
-				case '2':{
-					base = 6;
-				}
-				case '3':{
-					base = 5;
-				}
-				case '4':{
-					base = 4;
-				}
-				case '5':{
-					base = 3;
-				}
-				case '6':{
-					base = 2;
-				}
-				case '7':{
-					base = 1;
-				}
-				default: break;
-			}
-			System.out.println("base = "+base);
-
-			switch(col){
-				case 'b':offset = 1;
-				case 'c':offset = 2;
-				case 'd':offset = 3;
-				case 'e':offset = 4;
-				case 'f':offset = 5;
-				case 'g':offset = 6;
-				case 'h':offset = 7;
-				default: break;
-			}
-			System.out.println("offset = "+offset);
-
+		private static int toGridFormat(char c){
+			int base =0;
+			if (c =='8' || c == 'a') base = 0;
+			if (c =='7' || c == 'b') base = 1;
+			if (c =='6' || c == 'c') base = 2;
+			if (c =='5' || c == 'd') base = 3;
+			if (c =='4' || c == 'e') base = 4;
+			if (c =='3' || c == 'f') base = 5;
+			if (c =='2' || c == 'g') base = 6;
+			if (c =='1' || c == 'h') base = 7;
 			return base;
 		}
 	}
