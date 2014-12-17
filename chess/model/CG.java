@@ -34,8 +34,8 @@ public class CG{
 		//String representation of enum type
 		private String getStr(){return str;}
 
-		private static ArrayList<Properties> possibleMoves(){
-			ArrayList<Properties> temp = new ArrayList<Properties>();
+		private static ArrayList<String> possibleMoves(){
+			ArrayList<String> temp = new ArrayList<String>();
 
 			boolean white_turn = false;
 			boolean black_turn = false;
@@ -47,10 +47,58 @@ public class CG{
 				for (String x : row){
 					ChessPiece thisPiece = ChessPiece.getEnum(x);
 					if (white_turn){
-						if (!isWhite(thisPiece)) continue;
+						if (!isWhite(thisPiece));//CAN'T LEAVE LIKE THIS
+						if (thisPiece == ChessPiece.WHITE_PAWN){
+							String now = "I'm a white pawn";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.WHITE_CASTLE){
+							String now = "I'm a white castle";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.WHITE_KNIGHT){
+							String now = "I'm a white knight";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.WHITE_BISHOP){
+							String now = "I'm a white bishop";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.WHITE_QUEEN){
+							String now = "I'm a white queen";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.WHITE_KING){
+							String now = "I'm a white king";
+							temp.add(now);
+						}
 					}
 					if (black_turn){
-						if (!isBlack(thisPiece)) continue;
+						if (!isBlack(thisPiece));//CAN'T LEAVE LIKE THIS
+						if (thisPiece == ChessPiece.BLACK_PAWN){
+							String now = "I'm a black pawn";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.BLACK_CASTLE){
+							String now = "I'm a black castle";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.BLACK_KNIGHT){
+							String now = "I'm a black knight";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.BLACK_BISHOP){
+							String now = "I'm a black bishop";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.BLACK_QUEEN){
+							String now = "I'm a black queen";
+							temp.add(now);
+						}
+						if (thisPiece == ChessPiece.BLACK_KING){
+							String now = "I'm a black king";
+							temp.add(now);
+						}
 					}
 				}
 			}
@@ -103,7 +151,8 @@ public class CG{
 		while(play){
 			System.out.println(currentPlayer(cp));
 			printMat(board);
-			//ArrayList<Properties> p = ChessPiece.possibleMoves();
+			ArrayList<String> p = ChessPiece.possibleMoves();
+			for (String g : p){System.out.println(g);}
 			cp++;
 			play = false;
 		}
