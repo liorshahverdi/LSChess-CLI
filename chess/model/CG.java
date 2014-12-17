@@ -22,8 +22,8 @@ public class CG{
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"b_p"},
-			{"-",  "w_p",  "-",  "-",  "-"  ,"-"  ,"w_p","-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-",  "-",  "-",  "-"  ,"-"  ,"w_p","-"},
 			{"-","-","-","-","-","-","-","-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
@@ -63,9 +63,16 @@ public class CG{
 							String t="";
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
-							int c = toGridFormat(c_char);
-							int r = toGridFormat(r_char);
+							int c = toGridFormat(c_char);//current piece's column
+							int r = toGridFormat(r_char);//current piece's row
 							//check in front
+							if (ChessPiece.getEnum(board[r-1][c]) == ChessPiece.EMPTY){
+								//System.out.println("w_p move to row "+(r-1)+" column "+c);
+								Cell move = new Cell(r-1, c);
+								t+="\n"+ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+move.getRow()+" column "+move.getCol();
+							}
+							//check top-left and top-right diagonals
+						
 
 							temp.add(t);
 						}
