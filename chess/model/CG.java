@@ -8,14 +8,14 @@ public class CG{
 	public CG(){
 		cp = 1;
 		board = new String[][]{
-			{"w_c","w_n","w_b","w_k","w_q","w_b","w_n","w_c"},
-			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"b_c","b_n","b_b","b_k","b_q","b_b","b_n","b_c"},
 			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
-			{"b_c","b_n","b_b","b_k","b_q","b_b","b_n","b_c"}
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
+			{"w_c","w_n","w_b","w_k","w_q","w_b","w_n","w_c"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -43,6 +43,7 @@ public class CG{
 			if (cp%2 == 0) black_turn = true;
 			else white_turn = true;
 
+			int i = 0;
 			for (String[] row : board){
 				for (String x : row){
 					ChessPiece thisPiece = ChessPiece.getEnum(x);
@@ -100,6 +101,7 @@ public class CG{
 							temp.add(now);
 						}
 					}
+					i++;
 				}
 			}
 
