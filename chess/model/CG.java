@@ -229,17 +229,56 @@ public class CG{
 		}
 
 		private static int toGridFormat(char col, char row){
-			int locn=0;int base =0;int offset=0;
-			if (row=='2') {
+			int base =0;int offset=0;
+			/*if (row=='2') {
 				base = 6;
-				System.out.println("b = "+base);
+			}*/
+			switch(row){
+				case '1':{
+					base = 7;
+				}
+				case '2':{
+					base = 6;
+				}
+				case '3':{
+					base = 5;
+				}
+				case '4':{
+					base = 4;
+				}
+				case '5':{
+					base = 3;
+				}
+				case '6':{
+					base = 2;
+				}
+				case '7':{
+					base = 1;
+				}
+				default: break;
 			}
+			System.out.println("base = "+base);
+
+			switch(col){
+				case 'b':offset = 1;
+				case 'c':offset = 2;
+				case 'd':offset = 3;
+				case 'e':offset = 4;
+				case 'f':offset = 5;
+				case 'g':offset = 6;
+				case 'h':offset = 7;
+				default: break;
+			}
+			System.out.println("offset = "+offset);
+
 			return base;
 		}
 	}
 
 	private static void printMat(String[][] x)
-	{
+	{	
+		int i = 0;
+
 		System.out.println("-------------------------------------------------------------------------");
 		for (String[] row : x)
 		{
@@ -248,6 +287,7 @@ public class CG{
 		    {
 		    	if (value.equals("-")) System.out.print("-\t");
 		    	else System.out.print(value+"\t");
+		    	i++;
 		    }
 		    System.out.print("|\n");
 		}
