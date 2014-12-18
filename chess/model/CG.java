@@ -113,6 +113,7 @@ public class CG{
 							int r = toGridFormat(r_char);//current piece's row
 
 							//check from left to right
+
 							//check if located @ leftmost-column
 							if (c==0){
 								//look right
@@ -183,7 +184,52 @@ public class CG{
 									}
 								}
 							}
-
+							else if (c>=1 && c<7){
+								int dt = 1;
+								//LEFT
+								boolean collision_left = false;
+								while(!collision_left){
+									if (c-dt == 0) break;
+									if (ChessPiece.getEnum(board[r][c-dt]) != ChessPiece.EMPTY){
+										//check for kill option
+										if (isBlack(ChessPiece.getEnum(board[r][c-dt]))){
+											Cell toKill = new Cell(r, c-dt);
+											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+										}
+										collision_down = true;
+									}
+									else
+									{
+										Cell move = new Cell(r, c-dt);
+										temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+										dt++;
+									}
+								}
+								dt=1;
+								//RIGHT
+								boolean collision_right = false;
+								while (!collision_right){
+									if (c+dt == 7) break;
+									if (ChessPiece.getEnum(board[r][c+dt]) != ChessPiece.EMPTY){
+										//check for kill option
+										if (isBlack(ChessPiece.getEnum(board[r][c+dt]))){
+											Cell toKill = new Cell(r, c+dt);
+											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+										}
+										collision_right = true;
+									}
+									else 
+									{
+										Cell move = new Cell(r, c+dt);
+										temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+										dt++;
+									}
+								}
+							}
 
 						}
 						if (thisPiece == ChessPiece.WHITE_KNIGHT){
