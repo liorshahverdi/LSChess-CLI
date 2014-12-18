@@ -24,7 +24,7 @@ public class CG{
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "b_n"  ,"-"  ,"-"  ,"-"  ,"b_p"  ,"b_p"  ,"b_p"},
 			{"w_p",  "-",  "-",  "-",  "-"  ,"w_p"  ,"w_p","w_p"},
-			{"-","-","-","-","-","-","-","-"}
+			{"w_c","-","b_p","-","-","-","-","-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -106,8 +106,41 @@ public class CG{
 							}
 						}
 						if (thisPiece == ChessPiece.WHITE_CASTLE){
-							String now = "I'm a white castle";
-							temp.add(now);
+							//String now = "White castle @ "+ChessPiece.convertToCoords(i);
+							char c_char = ChessPiece.convertToCoords(i).charAt(0);
+							char r_char = ChessPiece.convertToCoords(i).charAt(1);
+							int c = toGridFormat(c_char);//current piece's column
+							int r = toGridFormat(r_char);//current piece's row
+
+							//check from left to right
+							//check if located @ leftmost-column
+							if (c==0){
+								//look right
+								int dt = 1;
+								boolean collision = false;
+								while (!collision){
+									if (ChessPiece.getEnum(board[r][c+dt]) != ChessPiece.EMPTY){
+										//check for kill option
+										if (isBlack(ChessPiece.getEnum(board[r][c+dt]))){
+											Cell toKill = new Cell(r, c+dt);
+											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+										}
+										collision = true;
+									}
+									else 
+									{
+										Cell move = new Cell(r, c+dt);
+										temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+										dt++;
+									}
+								}
+
+								//look up & down if possible
+							}
+
+
 						}
 						if (thisPiece == ChessPiece.WHITE_KNIGHT){
 							String now = "I'm a white knight";
@@ -277,7 +310,7 @@ public class CG{
 	private static void printMat(String[][] x)
 	{	
 		int i = 0;
-
+		System.out.println("--------a-------b-------c-------d-------e--------------------------------");
 		System.out.println("-------------------------------------------------------------------------");
 		for (String[] row : x)
 		{
