@@ -17,14 +17,14 @@ public class CG{
 			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
 			{"w_c","w_n","w_b","w_k","w_q","w_b","w_n","w_c"}*/
 
-			{"b_c","b_n","b_b","b_k","b_q","b_b","b_n","b_c"},
-			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "b_n"  ,"-"  ,"-"  ,"-"  ,"b_p"  ,"b_p"  ,"b_p"},
-			{"w_p",  "-",  "-",  "-",  "-"  ,"w_p"  ,"w_p","w_p"},
-			{"w_c","-","b_p","-","-","-","-","-"}
+			{"w_c",  "b_n",  "b_b",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
+			{"-",  "b_p",  "b_p",  "b_p",  "b_p",  "b_p","b_p",  "b_p"},
+			{"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
+			{"-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
+			{"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
+			{"w_c"  ,  "b_n",  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
+			{"-",  "-"  ,  "w_p",    "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
+			{"-",  "-"  ,  "b_p",  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  }
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -117,8 +117,9 @@ public class CG{
 							if (c==0){
 								//look right
 								int dt = 1;
-								boolean collision = false;
-								while (!collision){
+								boolean collision_right = false;
+								while (!collision_right){
+									if (c+dt == 8) break;
 									if (ChessPiece.getEnum(board[r][c+dt]) != ChessPiece.EMPTY){
 										//check for kill option
 										if (isBlack(ChessPiece.getEnum(board[r][c+dt]))){
@@ -126,7 +127,7 @@ public class CG{
 											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
 											toKill.getRow()+" column "+toKill.getCol());
 										}
-										collision = true;
+										collision_right = true;
 									}
 									else 
 									{
@@ -136,8 +137,51 @@ public class CG{
 										dt++;
 									}
 								}
-
 								//look up & down if possible
+								//UP
+								dt = 1;
+								boolean collision_up = false;
+								while (!collision_up){
+									if (r-dt == -1) break;
+									if (ChessPiece.getEnum(board[r-dt][c]) != ChessPiece.EMPTY){
+										//check for kill option
+										if (isBlack(ChessPiece.getEnum(board[r-dt][c]))){
+											Cell toKill = new Cell(r-dt, c);
+											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+										}
+										collision_up = true;
+									}
+									else
+									{
+										Cell move = new Cell(r-dt, c);
+										temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+										dt++;
+									}
+								}
+								//DOWN
+								dt = 1;
+								boolean collision_down = false;
+								while(!collision_down){
+									if (r+dt==8) break;
+									if (ChessPiece.getEnum(board[r+dt][c]) != ChessPiece.EMPTY){
+										//check for kill option
+										if (isBlack(ChessPiece.getEnum(board[r+dt][c]))){
+											Cell toKill = new Cell(r+dt, c);
+											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+										}
+										collision_down = true;
+									}
+									else
+									{
+										Cell move = new Cell(r+dt, c);
+										temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+										dt++;
+									}
+								}
 							}
 
 
@@ -310,20 +354,21 @@ public class CG{
 	private static void printMat(String[][] x)
 	{	
 		int i = 0;
-		System.out.println("--------a-------b-------c-------d-------e--------------------------------");
-		System.out.println("-------------------------------------------------------------------------");
+		System.out.println("--------a-------b-------c-------d-------e-------f-------g-------h---------");
+		System.out.println("--------------------------------------------------------------------------");
 		for (String[] row : x)
 		{
-			System.out.print("|\t");
+			System.out.print(i+"|\t");
 		    for (String value : row)
 		    {
 		    	if (value.equals("-")) System.out.print("-\t");
 		    	else System.out.print(value+"\t");
-		    	i++;
 		    }
-		    System.out.print("|\n");
+		    System.out.print("|"+i+"\n");
+		    i++;
 		}
-		System.out.println("-------------------------------------------------------------------------");
+		System.out.println("--------------------------------------------------------------------------");
+		System.out.println("--------a-------b-------c-------d-------e-------f-------g-------h---------\n");
 	}
 
 	private static String currentPlayer(int c){
