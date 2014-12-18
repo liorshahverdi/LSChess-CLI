@@ -17,12 +17,12 @@ public class CG{
 			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
 			{"w_c","w_n","w_b","w_k","w_q","w_b","w_n","w_c"}*/
 
-			{"-",  "b_n",  "b_b",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
-			{"-",  "b_p",  "b_p",  "b_p",  "b_p",  "b_p","b_p",  "b_p"},
+			{"w_n",  "b_n",  "-",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
+			{"-",  "b_p",  "-",  "b_p",  "b_p",  "b_p","b_p",  "b_p"},
 			{"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "w_c"  },
+			{"-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-",    "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  }
 		};
@@ -368,9 +368,31 @@ public class CG{
 										//check for kill option
 										if (isBlack(ChessPiece.getEnum(board[r+1][c+2]))){
 											Cell toKill = new Cell(r+1, c+2);
-											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											temp.add(ChessPiece.WHITE_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
 											toKill.getRow()+" column "+toKill.getCol());
 										}
+									}
+									else if (ChessPiece.getEnum(board[r+1][c+2]) == ChessPiece.EMPTY)
+									{
+										Cell move = new Cell(r+1, c+2);
+										temp.add(ChessPiece.WHITE_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+											move.getRow()+" column "+move.getCol());
+									}
+
+									//LEFT_1_DOWN_2
+									if(ChessPiece.getEnum(board[r+2][c+1]) != ChessPiece.EMPTY){
+										//check for kill option
+										if (isBlack(ChessPiece.getEnum(board[r+2][c+1]))){
+											Cell toKill = new Cell(r+2, c+1);
+											temp.add(ChessPiece.WHITE_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+										}
+									}
+									else if (ChessPiece.getEnum(board[r+2][c+1]) == ChessPiece.EMPTY)
+									{
+										Cell move = new Cell(r+2, c+1);
+										temp.add(ChessPiece.WHITE_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+											move.getRow()+" column "+move.getCol());
 									}
 								}
 							}
