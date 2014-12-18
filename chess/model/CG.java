@@ -358,7 +358,23 @@ public class CG{
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
 							int c = toGridFormat(c_char);//current piece's column
 							int r = toGridFormat(r_char);//current piece's row
-							
+
+							//check from left to right
+							//check if located @ leftmost-column
+							if (c==0){
+								if (r==0){
+									////LEFT_2_DOWN_1////
+									if (ChessPiece.getEnum(board[r+1][c+2]) != ChessPiece.EMPTY){
+										//check for kill option
+										if (isBlack(ChessPiece.getEnum(board[r+1][c+2]))){
+											Cell toKill = new Cell(r+1, c+2);
+											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+										}
+									}
+								}
+							}
+
 						}
 						if (thisPiece == ChessPiece.WHITE_BISHOP){
 							String now = "I'm a white bishop";
