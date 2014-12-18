@@ -22,8 +22,8 @@ public class CG{
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-",  "-",  "-",  "-"  ,"-"  ,"w_p","-"},
+			{"-",  "b_n"  ,"-"  ,"-"  ,"-"  ,"b_p"  ,"b_p"  ,"b_p"},
+			{"w_p",  "-",  "-",  "-",  "-"  ,"w_p"  ,"w_p","w_p"},
 			{"-","-","-","-","-","-","-","-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
@@ -60,7 +60,6 @@ public class CG{
 						if (!isWhite(thisPiece));//CAN'T LEAVE LIKE THIS
 						if (thisPiece == ChessPiece.WHITE_PAWN){
 							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
-							String t="";
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
 							int c = toGridFormat(c_char);//current piece's column
@@ -69,29 +68,42 @@ public class CG{
 							if (ChessPiece.getEnum(board[r-1][c]) == ChessPiece.EMPTY){
 								//System.out.println("w_p move to row "+(r-1)+" column "+c);
 								Cell move = new Cell(r-1, c);
-								t+="\n"+ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
-									move.getRow()+" column "+move.getCol();
+								temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
 							}
 							//check if left-edge pawn
 							if (c == 0){
-								//only check right for kill option
-
+								//only check top-right-diag for kill option
+								if ((ChessPiece.getEnum(board[r-1][c+1]) != ChessPiece.EMPTY) && isBlack(ChessPiece.getEnum(board[r-1][c+1]))){
+									Cell toKill = new Cell(r-1, c+1);
+									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+									toKill.getRow()+" column "+toKill.getCol());
+								}
 							}
+							//check if right-edge pawn
 							else if (c == 7){
-								//only check left for kill option
+								//only check top-left-diag for kill option
+								if ((ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.EMPTY) && isBlack(ChessPiece.getEnum(board[r-1][c-1]))){
+									Cell toKill = new Cell(r-1, c-1);
+									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+									toKill.getRow()+" column "+toKill.getCol());
+								}
 							}
 							else{
 								//check top-left diagonal FOR KILL OPTION
-								if (ChessPiece.getEnum(board[r-1][c-1])) != ChessPiece.EMPTY){
-
+								if ((ChessPiece.getEnum(board[r-1][c-1])) != ChessPiece.EMPTY && isBlack(ChessPiece.getEnum(board[r-1][c-1]))){
+									Cell toKill = new Cell(r-1, c-1);
+									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+									toKill.getRow()+" column "+toKill.getCol());
 								}
 								
-
 								//check top-right diagonal for KILL OPTION
+								if ((ChessPiece.getEnum(board[r-1][c+1])) != ChessPiece.EMPTY && isBlack(ChessPiece.getEnum(board[r-1][c+1]))){
+									Cell toKill = new Cell(r-1, c+1);
+									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+									toKill.getRow()+" column "+toKill.getCol());
+								}
 							}
-							
-
-							temp.add(t);
 						}
 						if (thisPiece == ChessPiece.WHITE_CASTLE){
 							String now = "I'm a white castle";
