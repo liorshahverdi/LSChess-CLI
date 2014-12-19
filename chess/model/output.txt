@@ -1,0 +1,41 @@
+Welcome to LSChess! Let's play!
+White's Turn
+--------a-------b-------c-------d-------e-------f-------g-------h---------
+--------------------------------------------------------------------------
+8|	-	-	-	b_k	b_q	b_b	b_n	b_c	|8
+7|	-	-	-	b_p	b_p	b_p	b_p	b_p	|7
+6|	-	-	-	-	-	-	-	-	|6
+5|	-	-	-	-	-	-	-	-	|5
+4|	-	-	-	-	w_q	-	-	-	|4
+3|	-	-	-	-	-	-	-	-	|3
+2|	-	-	-	-	-	-	-	-	|2
+1|	-	-	-	-	-	-	-	-	|1
+--------------------------------------------------------------------------
+--------a-------b-------c-------d-------e-------f-------g-------h---------
+
+WHITE_QUEEN @ e4 move to row 3 column 4
+WHITE_QUEEN @ e4 move to row 2 column 4
+WHITE_QUEEN @ e4 kill at row 1 column 4
+WHITE_QUEEN @ e4 move to row 3 column 5
+WHITE_QUEEN @ e4 move to row 2 column 6
+WHITE_QUEEN @ e4 kill at row 1 column 7
+WHITE_QUEEN @ e4 move to row 4 column 5
+WHITE_QUEEN @ e4 move to row 4 column 6
+WHITE_QUEEN @ e4 move to row 4 column 7
+WHITE_QUEEN @ e4 move to row 5 column 5
+WHITE_QUEEN @ e4 move to row 6 column 6
+WHITE_QUEEN @ e4 move to row 7 column 7
+WHITE_QUEEN @ e4 move to row 5 column 4
+WHITE_QUEEN @ e4 move to row 6 column 4
+WHITE_QUEEN @ e4 move to row 7 column 4
+WHITE_QUEEN @ e4 move to row 5 column 3
+WHITE_QUEEN @ e4 move to row 6 column 2
+WHITE_QUEEN @ e4 move to row 7 column 1
+WHITE_QUEEN @ e4 move to row 4 column 3
+WHITE_QUEEN @ e4 move to row 4 column 2
+WHITE_QUEEN @ e4 move to row 4 column 1
+WHITE_QUEEN @ e4 move to row 4 column 0
+WHITE_QUEEN @ e4 move to row 3 column 3
+WHITE_QUEEN @ e4 move to row 2 column 2
+WHITE_QUEEN @ e4 move to row 1 column 1
+WHITE_QUEEN @ e4 move to row 0 column 0

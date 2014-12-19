@@ -207,7 +207,6 @@ public class ChessView extends JFrame {
 		b.add(t32);
 		//						END
 
-
 		///////////////////////// ROW 5 ////////////////////////		
 		JPanel t33 = new JPanel(new BorderLayout());
 		JLabel lt33 = new JLabel("", black_tile, JLabel.CENTER);

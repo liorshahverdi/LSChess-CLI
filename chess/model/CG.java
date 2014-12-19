@@ -21,7 +21,7 @@ public class CG{
 			{"-",  "-",  "-",  "b_p",  "b_p",  "b_p","b_p",  "b_p"},
 			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "w_b"  ,  "-"  ,"-"  ,  "-"  },
+			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "w_q"  ,  "-"  ,"-"  ,  "-"  },
 			{"-"  ,"-",   "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-",    "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  }
@@ -598,7 +598,170 @@ public class CG{
 							int r = toGridFormat(r_char);//current piece's row
 
 							int dt = 1;
-							
+							//up
+							boolean collision_up = false;
+							while (!collision_up){
+								if (r-dt == -1) break;
+								if (ChessPiece.getEnum(board[r-dt][c]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r-dt][c]))){
+										Cell toKill = new Cell(r-dt, c);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_up = true;
+								}
+								else{
+									Cell move = new Cell(r-dt, c);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
+							dt = 1;
+							//top-right
+							boolean collision_tr = false;
+							while(!collision_tr){
+								if ((c+dt == 8) ||(r-dt == -1)) break;
+								if (ChessPiece.getEnum(board[r-dt][c+dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r-dt][c+dt]))){
+										Cell toKill = new Cell(r-dt, c+dt);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_tr = true;
+								}
+								else{
+									Cell move = new Cell(r-dt, c+dt);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}	
+							//right
+							dt = 1;
+							boolean collision_right = false;
+							while (!collision_right){
+								if (c+dt == 8) break;
+								if (ChessPiece.getEnum(board[r][c+dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r][c+dt]))){
+										Cell toKill = new Cell(r, c+dt);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_right = true;
+								}else{
+									Cell move = new Cell(r, c+dt);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
+							//bottom-right
+							dt = 1;
+							boolean collision_br = false;
+							while (!collision_br){
+								if ((c+dt == 8) ||(r+dt == 8)) break;
+								if (ChessPiece.getEnum(board[r+dt][c+dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r+dt][c+dt]))){
+										Cell toKill = new Cell(r+dt, c+dt);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_br = true;
+								}
+								else{
+									Cell move = new Cell(r+dt, c+dt);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
+							//down
+							dt = 1;
+							boolean collision_down = false;
+							while(!collision_down){
+								if (r+dt==8) break;
+								if (ChessPiece.getEnum(board[r+dt][c]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r+dt][c]))){
+										Cell toKill = new Cell(r+dt, c);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_down = true;
+								}else{
+									Cell move = new Cell(r+dt, c);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
+							//bottom-left
+							dt = 1;
+							boolean collision_bl = false;
+							while(!collision_bl){
+								if ((c-dt == -1) || (r+dt == 8)) break;
+								if (ChessPiece.getEnum(board[r+dt][c-dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r+dt][c-dt]))){
+										Cell toKill = new Cell(r+dt, c-dt);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_bl = true;
+								}
+								else{
+									Cell move = new Cell(r+dt, c-dt);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
+							//left
+							dt = 1;
+							boolean collision_left = false;
+							while(!collision_left){
+								if (c-dt == -1) break;
+								if (ChessPiece.getEnum(board[r][c-dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r][c-dt]))){
+										Cell toKill = new Cell(r, c-dt);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_left = true;
+								}else{
+									Cell move = new Cell(r, c-dt);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
+							//top-left
+							dt = 1;
+							boolean collision_tl = false;
+							while (!collision_tl){
+								if ((c-dt == -1) || (r-dt == -1)) break;
+								if (ChessPiece.getEnum(board[r-dt][c-dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r-dt][c-dt]))){
+										Cell toKill = new Cell(r-dt, c-dt);
+										temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_tl = true;
+								}
+								else{
+									Cell move = new Cell(r-dt, c-dt);
+									temp.add(ChessPiece.WHITE_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
 						}
 						if (thisPiece == ChessPiece.WHITE_KING){
 							String now = "I'm a white king";
