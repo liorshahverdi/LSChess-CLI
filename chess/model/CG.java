@@ -21,7 +21,7 @@ public class CG{
 			{"-",  "-",  "-",  "b_p",  "b_p",  "b_p","b_p",  "b_p"},
 			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "w_q"  ,  "-"  ,"-"  ,  "-"  },
+			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "w_k"  ,  "-"  ,"-"  ,  "-"  },
 			{"-"  ,"-",   "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-",    "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  }
@@ -764,8 +764,29 @@ public class CG{
 							}
 						}
 						if (thisPiece == ChessPiece.WHITE_KING){
-							String now = "I'm a white king";
-							temp.add(now);
+							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
+							char c_char = ChessPiece.convertToCoords(i).charAt(0);
+							char r_char = ChessPiece.convertToCoords(i).charAt(1);
+							int c = toGridFormat(c_char);//current piece's column
+							int r = toGridFormat(r_char);//current piece's row
+
+							if (r-1 != -1){
+								//up
+								if (ChessPiece.getEnum(board[r-1][c]) == ChessPiece.EMPTY){
+									//System.out.println("w_p move to row "+(r-1)+" column "+c);
+									Cell move = new Cell(r-1, c);
+									temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+								}
+								else if (ChessPiece.getEnum(board[r-1][c]) != ChessPiece.EMPTY && 
+										isBlack(ChessPiece.getEnum(board[r-1][c])) &&
+										ChessPiece.getEnum(board[r-1][c]) != ChessPiece.BLACK_KING){
+											Cell toKill = new Cell(r-1, c);
+											temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+								}
+							}
+											
 						}
 					}
 					if (black_turn){
