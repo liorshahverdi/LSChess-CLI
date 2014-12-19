@@ -509,28 +509,48 @@ public class CG{
 							int c = toGridFormat(c_char);//current piece's column
 							int r = toGridFormat(r_char);//current piece's row
 
-							//check from left to right
 							int dt = 1;
 							boolean collision_tl = false;
 							while (!collision_tl){
 								if ((c-dt == -1) || (r-dt == -1)) break;
-									if (ChessPiece.getEnum(board[r-dt][c-dt]) != ChessPiece.EMPTY){
-										//check for kill option
-										if (isBlack(ChessPiece.getEnum(board[r-dt][c-dt]))){
-											Cell toKill = new Cell(r-dt, c-dt);
-											temp.add(ChessPiece.WHITE_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
-											toKill.getRow()+" column "+toKill.getCol());
-										}
-										collision_tl = true;
+								if (ChessPiece.getEnum(board[r-dt][c-dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r-dt][c-dt]))){
+										Cell toKill = new Cell(r-dt, c-dt);
+										temp.add(ChessPiece.WHITE_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
 									}
-									else
-									{
-										Cell move = new Cell(r-dt, c-dt);
-										temp.add(ChessPiece.WHITE_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
-										move.getRow()+" column "+move.getCol());
-										dt++;
-									}
+									collision_tl = true;
+								}
+								else{
+									Cell move = new Cell(r-dt, c-dt);
+									temp.add(ChessPiece.WHITE_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
 							}
+							dt = 1;
+
+							boolean collision_bl = false;
+							while(!collision_bl){
+								if ((c-dt == -1) || (r+dt == 8)) break;
+								if (ChessPiece.getEnum(board[r+dt][c-dt]) != ChessPiece.EMPTY){
+									//check for kill option
+									if (isBlack(ChessPiece.getEnum(board[r+dt][c-dt]))){
+										Cell toKill = new Cell(r+dt, c-dt);
+										temp.add(ChessPiece.WHITE_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+										toKill.getRow()+" column "+toKill.getCol());
+									}
+									collision_bl = true;
+								}
+								else{
+									Cell move = new Cell(r+dt, c-dt);
+									temp.add(ChessPiece.WHITE_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									move.getRow()+" column "+move.getCol());
+									dt++;
+								}
+							}
+							dt = 1;
 						}
 						if (thisPiece == ChessPiece.WHITE_QUEEN){
 							String now = "I'm a white queen";
