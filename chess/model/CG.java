@@ -591,8 +591,14 @@ public class CG{
 							}
 						}
 						if (thisPiece == ChessPiece.WHITE_QUEEN){
-							String now = "I'm a white queen";
-							temp.add(now);
+							//String now = "White castle @ "+ChessPiece.convertToCoords(i);
+							char c_char = ChessPiece.convertToCoords(i).charAt(0);
+							char r_char = ChessPiece.convertToCoords(i).charAt(1);
+							int c = toGridFormat(c_char);//current piece's column
+							int r = toGridFormat(r_char);//current piece's row
+
+							int dt = 1;
+							
 						}
 						if (thisPiece == ChessPiece.WHITE_KING){
 							String now = "I'm a white king";
