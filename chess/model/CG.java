@@ -8,23 +8,23 @@ public class CG{
 	public CG(){
 		cp = 1;
 		board = new String[][]{
-			/*{"b_c","b_n","b_b","b_k","b_q","b_b","b_n","b_c"},
+			{"b_c","b_n","b_b","b_k","b_q","b_b","b_n","b_c"},
 			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
-			{"w_c","w_n","w_b","w_k","w_q","w_b","w_n","w_c"}*/
+			{"w_c","w_n","w_b","w_k","w_q","w_b","w_n","w_c"}
 
-			{"-",  "-",  "-",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
+			/*{"-",  "-",  "-",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
 			{"-",  "-",  "-",  "b_p",  "b_p",  "b_p","b_p",  "b_p"},
 			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "w_k"  ,  "-"  ,"-"  ,  "-"  },
 			{"-"  ,"-",   "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
 			{"-",  "-"  ,  "-",    "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-",  "-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  }
+			{"-",  "-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  }*/
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -856,9 +856,56 @@ public class CG{
 							}
 
 							//bottom-left
-							if (){
-								
+							if ((c-1 != -1) && (r+1 != 8)){
+								if (ChessPiece.getEnum(board[r+1][c-1]) == ChessPiece.EMPTY){
+									//System.out.println("w_p move to row "+(r-1)+" column "+c);
+									Cell move = new Cell(r+1, c-1);
+									temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+								}
+								else if (ChessPiece.getEnum(board[r+1][c-1]) != ChessPiece.EMPTY && 
+										isBlack(ChessPiece.getEnum(board[r+1][c-1])) &&
+										ChessPiece.getEnum(board[r+1][c-1]) != ChessPiece.BLACK_KING){
+											Cell toKill = new Cell(r+1, c-1);
+											temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+								}
 							}
+
+							//left
+							if (c-1 != -1){
+								if (ChessPiece.getEnum(board[r][c-1]) == ChessPiece.EMPTY){
+									//System.out.println("w_p move to row "+(r-1)+" column "+c);
+									Cell move = new Cell(r, c-1);
+									temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+								}
+								else if (ChessPiece.getEnum(board[r][c-1]) != ChessPiece.EMPTY && 
+										isBlack(ChessPiece.getEnum(board[r][c-1])) &&
+										ChessPiece.getEnum(board[r][c-1]) != ChessPiece.BLACK_KING){
+											Cell toKill = new Cell(r, c-1);
+											temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+								}
+							}
+
+							//top-left
+							if ((c-1 != -1) && (r-1 != -1)){
+								if (ChessPiece.getEnum(board[r-1][c-1]) == ChessPiece.EMPTY){
+									//System.out.println("w_p move to row "+(r-1)+" column "+c);
+									Cell move = new Cell(r-1, c-1);
+									temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+										move.getRow()+" column "+move.getCol());
+								}
+								else if (ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.EMPTY && 
+										isBlack(ChessPiece.getEnum(board[r-1][c-1])) &&
+										ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.BLACK_KING){
+											Cell toKill = new Cell(r-1, c-1);
+											temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill at row "+
+											toKill.getRow()+" column "+toKill.getCol());
+								}
+							}
+
 						}
 					}
 					if (black_turn){
@@ -1047,6 +1094,5 @@ public class CG{
 		//ArrayList<Properties> p = ChessPiece.possibleMoves();
 		//System.out.println(currentPlayer(cp));
 	}
-
 	public static void main(String[] args){ CG m = new CG(); }
 }
