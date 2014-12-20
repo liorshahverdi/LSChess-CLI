@@ -1,5 +1,6 @@
 import java.util.Properties;
 import java.util.ArrayList;
+import java.util.Scanner;
 public class CG{
 	public static String[][] board;
 	public static int cp;//will be modded by 2 at each iteration
@@ -12,9 +13,9 @@ public class CG{
 			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"w_p",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
 			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}
 
 			/*{"-",  "-",  "-",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
@@ -1069,22 +1070,18 @@ public class CG{
 
 	private static void printMat(String[][] x)
 	{	
-		int i = 8;
-		System.out.println("--------a-------b-------c-------d-------e-------f-------g-------h---------");
 		System.out.println("--------------------------------------------------------------------------");
 		for (String[] row : x)
 		{
-			System.out.print(i+"|\t");
+			System.out.print("|\t");
 		    for (String value : row)
 		    {
 		    	if (value.equals("-")) System.out.print("-\t");
 		    	else System.out.print(value+"\t");
 		    }
-		    System.out.print("|"+i+"\n");
-		    i--;
+		    System.out.print("|\n");
 		}
 		System.out.println("--------------------------------------------------------------------------");
-		System.out.println("--------a-------b-------c-------d-------e-------f-------g-------h---------\n");
 	}
 
 	private static void flipMat(String[][] x)
@@ -1109,20 +1106,44 @@ public class CG{
 		else return "White's Turn";
 	}
 
+	private static void prepareForOpDisplay(){}
+
+	private static void prepareToMovePiece(){}
+
 	private static void startGame(){
-		boolean play = true;
-		while(play){
-			System.out.println(currentPlayer(cp));
-			printMat(board);
+		Scanner s = new Scanner(System.in);
+		boolean check = false;
+		boolean mate = false;
+		while(!mate){
 			//ArrayList<String> p = ChessPiece.possibleMoves();
 			//for (String g : p){System.out.println(g);}
-			flipMat(board);
-			System.out.println("FLIPPPPP");
+			System.out.println(currentPlayer(cp));
 			printMat(board);
+			//flipMat(board);
 
+			System.out.println("Type 'see ops' or 'move piece'");
+			String inpt = s.nextLine();
+			while ((!inpt.equals("see ops")) && (!inpt.equals("move piece"))){//keep waiting for proper input
+				System.out.println("Not an option, friend. Type 'see ops' or 'move piece'");
+				inpt = s.nextLine();
+			}
+			if (inpt.equals("see ops")){
+				while(inpt.equals("see ops")){
+					prepareForOpDisplay();
+					System.out.println("Type 'see ops' or 'move piece'");
+					inpt = s.nextLine();
+					while((!inpt.equals("see ops")) && (!inpt.equals("move piece"))){
+						System.out.println("Not an option, friend. Type 'see ops' or 'move piece'");
+						inpt = s.nextLine();
+					}
+				}
+			}
+			if (inpt.equals("move piece")){
+				prepareToMovePiece();
+			}
 
 			cp++;
-			play = false;
+			mate = true;
 		}
 		//ArrayList<Properties> p = ChessPiece.possibleMoves();
 		//System.out.println(currentPlayer(cp));
