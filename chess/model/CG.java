@@ -69,7 +69,7 @@ public class CG{
 							if (ChessPiece.getEnum(board[r-1][c]) == ChessPiece.EMPTY){
 								//System.out.println("w_p move to row "+(r-1)+" column "+c);
 								Cell move = new Cell(r-1, c);
-								temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
+								temp.add(ChessPiece.WHITE_PAWN.toString()+" @ r"+r+"c"+c +" goto r "+
 								move.getRow()+" c "+move.getCol());
 							}
 
@@ -78,7 +78,7 @@ public class CG{
 								if (ChessPiece.getEnum(board[r-2][c]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r-2, c);
-									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
+									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ r"+r+"c"+c +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
 							}
@@ -1073,7 +1073,9 @@ public class CG{
 		}
 
 		//match possible moves from arraylist of possible moves to this piece
-		
+		ArrayList<String> p = ChessPiece.possibleMoves();
+		for (String g : p){System.out.println(g);}
+
 	}
 
 	private static boolean ownedByCurrentPlayer(Cell b){
@@ -1084,8 +1086,8 @@ public class CG{
 			System.out.println("That's empty..");
 			return false;
 		}
-		if (curplay.equals("White's Turn") && isWhite(m1)) return true;
-		else if (curplay.equals("Black's Turn") && isBlack(m1)) return true;
+		if (curplay.equals("White's Turn") && ChessPiece.isWhite(m1)) return true;
+		else if (curplay.equals("Black's Turn") && ChessPiece.isBlack(m1)) return true;
 		return false;
 	}
 
