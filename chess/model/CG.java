@@ -69,7 +69,7 @@ public class CG{
 							if (ChessPiece.getEnum(board[r-1][c]) == ChessPiece.EMPTY){
 								//System.out.println("w_p move to row "+(r-1)+" column "+c);
 								Cell move = new Cell(r-1, c);
-								temp.add(ChessPiece.WHITE_PAWN.toString()+" @ r"+r+"c"+c +" goto r "+
+								temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 								move.getRow()+" c "+move.getCol());
 							}
 
@@ -78,7 +78,7 @@ public class CG{
 								if (ChessPiece.getEnum(board[r-2][c]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r-2, c);
-									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ r"+r+"c"+c +" goto r "+
+									temp.add(ChessPiece.WHITE_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
 							}
@@ -1071,11 +1071,25 @@ public class CG{
 			System.out.print("Type column number (0-7) "); pc = c.nextInt();
 			selected_piece = new Cell(pr, pc);
 		}
+		String weirdStr = toWeirdForm(selected_piece);
+		System.out.println("Werd form ->"+weirdStr);
 
 		//match possible moves from arraylist of possible moves to this piece
 		ArrayList<String> p = ChessPiece.possibleMoves();
 		for (String g : p){System.out.println(g);}
 
+	}
+
+	private static String toWeirdForm(Cell p){
+		int p_row = p.getRow(); int p_col = p.getCol();
+		String temp = "";
+		System.out.println("ROW IS "+p_row+" AND COL IS "+p_col);
+		if (p_col == 0) temp+="a"; if (p_col == 1) temp+="b"; if (p_col == 2) temp+="c"; if (p_col == 3) temp+="d";
+		if (p_col == 4) temp+="e"; if (p_col == 5) temp+="f"; if (p_col == 6) temp+="g"; if (p_col == 7) temp+="h";
+
+		if (p_row == 7) temp+="1"; if (p_row == 6) temp+="2"; if (p_row == 5) temp+="3"; if (p_row == 4) temp+="4";
+		if (p_row == 3) temp+="5"; if (p_row == 2) temp+="6"; if (p_row == 1) temp+="7"; if (p_row == 0) temp+="8";
+		return temp;
 	}
 
 	private static boolean ownedByCurrentPlayer(Cell b){
