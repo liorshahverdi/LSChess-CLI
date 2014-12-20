@@ -12,9 +12,9 @@ public class CG{
 			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"w_p",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
+			{"-","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
 			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}
 
 			/*{"-",  "-",  "-",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
@@ -331,7 +331,7 @@ public class CG{
 										else
 										{
 											Cell move = new Cell(r-dt, c);
-											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
+											temp.add(ChessPiece.WHITE_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 											move.getRow()+" c "+move.getCol());
 											dt++;
 										}
@@ -456,7 +456,7 @@ public class CG{
 									}
 								}else{
 									Cell move = new Cell(r-two, c+one);
-									temp.add(ChessPiece.WHITE_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" move to row "+
+									temp.add(ChessPiece.WHITE_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 									move.getRow()+" c "+move.getCol());
 								}
 							}
@@ -1087,6 +1087,23 @@ public class CG{
 		System.out.println("--------a-------b-------c-------d-------e-------f-------g-------h---------\n");
 	}
 
+	private static void flipMat(String[][] x)
+	{
+		String[][] newMat = new String[8][8];
+		int oj = 0;
+		int oi = 0;
+		for (int j=7; j>-1; j--){
+			for (int i=7; i>-1; i--){
+				if (oi == 8) oi = 0;
+				newMat[oj][oi] = board[j][i];
+				oi++;
+			}
+			if (oj == 8) oj = 0;
+			else oj++;
+		}
+		board = newMat;
+	}
+
 	private static String currentPlayer(int c){
 		if (c%2 == 0) return "Black's Turn";
 		else return "White's Turn";
@@ -1097,8 +1114,13 @@ public class CG{
 		while(play){
 			System.out.println(currentPlayer(cp));
 			printMat(board);
-			ArrayList<String> p = ChessPiece.possibleMoves();
-			for (String g : p){System.out.println(g);}
+			//ArrayList<String> p = ChessPiece.possibleMoves();
+			//for (String g : p){System.out.println(g);}
+			flipMat(board);
+			System.out.println("FLIPPPPP");
+			printMat(board);
+
+
 			cp++;
 			play = false;
 		}
