@@ -980,77 +980,29 @@ public class CG{
 		private static String convertToCoords(int i){
 			String temp="";
 			
-			if (i==0) temp="a8";
-			else if (i==1) temp="b8";
-			else if (i==2) temp="c8";
-			else if (i==3) temp="d8";
-			else if (i==4) temp="e8";
-			else if (i==5) temp="f8";
-			else if (i==6) temp="g8";
-			else if (i==7) temp="h8";
+			if (i==0) temp="a8";else if (i==1) temp="b8";else if (i==2) temp="c8";else if (i==3) temp="d8";
+			else if (i==4) temp="e8";else if (i==5) temp="f8";else if (i==6) temp="g8";else if (i==7) temp="h8";
 
-			else if (i==8) temp="a7";
-			else if (i==9) temp="b7";
-			else if (i==10) temp="c7";
-			else if (i==11) temp="d7";
-			else if (i==12) temp="e7";
-			else if (i==13) temp="f7";
-			else if (i==14) temp="g7";
-			else if (i==15) temp="h7";
+			else if (i==8) temp="a7";else if (i==9) temp="b7";else if (i==10) temp="c7";else if (i==11) temp="d7";
+			else if (i==12) temp="e7";else if (i==13) temp="f7";else if (i==14) temp="g7";else if (i==15) temp="h7";
 
-			else if (i==16) temp="a6";
-			else if (i==17) temp="b6";
-			else if (i==18) temp="c6";
-			else if (i==19) temp="d6";
-			else if (i==20) temp="e6";
-			else if (i==21) temp="f6";
-			else if (i==22) temp="g6";
-			else if (i==23) temp="h6";
+			else if (i==16) temp="a6";else if (i==17) temp="b6";else if (i==18) temp="c6";else if (i==19) temp="d6";
+			else if (i==20) temp="e6";else if (i==21) temp="f6";else if (i==22) temp="g6";else if (i==23) temp="h6";
 
-			else if (i==24) temp="a5";
-			else if (i==25) temp="b5";
-			else if (i==26) temp="c5";
-			else if (i==27) temp="d5";
-			else if (i==28) temp="e5";
-			else if (i==29) temp="f5";
-			else if (i==30) temp="g5";
-			else if (i==31) temp="h5";
+			else if (i==24) temp="a5";else if (i==25) temp="b5";else if (i==26) temp="c5";else if (i==27) temp="d5";
+			else if (i==28) temp="e5";else if (i==29) temp="f5";else if (i==30) temp="g5";else if (i==31) temp="h5";
 
-			else if (i==32) temp="a4";
-			else if (i==33) temp="b4";
-			else if (i==34) temp="c4";
-			else if (i==35) temp="d4";
-			else if (i==36) temp="e4";
-			else if (i==37) temp="f4";
-			else if (i==38) temp="g4";
-			else if (i==39) temp="h4";
+			else if (i==32) temp="a4";else if (i==33) temp="b4";else if (i==34) temp="c4";else if (i==35) temp="d4";
+			else if (i==36) temp="e4";else if (i==37) temp="f4";else if (i==38) temp="g4";else if (i==39) temp="h4";
 
-			else if (i==40) temp="a3";
-			else if (i==41) temp="b3";
-			else if (i==42) temp="c3";
-			else if (i==43) temp="d3";
-			else if (i==44) temp="e3";
-			else if (i==45) temp="f3";
-			else if (i==46) temp="g3";
-			else if (i==47) temp="h3";
+			else if (i==40) temp="a3";else if (i==41) temp="b3";else if (i==42) temp="c3";else if (i==43) temp="d3";
+			else if (i==44) temp="e3";else if (i==45) temp="f3";else if (i==46) temp="g3";else if (i==47) temp="h3";
 
-			else if (i==48) temp="a2";
-			else if (i==49) temp="b2";
-			else if (i==50) temp="c2";
-			else if (i==51) temp="d2";
-			else if (i==52) temp="e2";
-			else if (i==53) temp="f2";
-			else if (i==54) temp="g2";
-			else if (i==55) temp="h2";
+			else if (i==48) temp="a2";else if (i==49) temp="b2";else if (i==50) temp="c2";else if (i==51) temp="d2";
+			else if (i==52) temp="e2";else if (i==53) temp="f2";else if (i==54) temp="g2";else if (i==55) temp="h2";
 
-			else if (i==56) temp="a1";
-			else if (i==57) temp="b1";
-			else if (i==58) temp="c1";
-			else if (i==59) temp="d1";
-			else if (i==60) temp="e1";
-			else if (i==61) temp="f1";
-			else if (i==62) temp="g1";
-			else if (i==63) temp="h1";
+			else if (i==56) temp="a1";else if (i==57) temp="b1";else if (i==58) temp="c1";else if (i==59) temp="d1";
+			else if (i==60) temp="e1";else if (i==61) temp="f1";else if (i==62) temp="g1";else if (i==63) temp="h1";
 			return temp;
 		}
 
@@ -1106,7 +1058,36 @@ public class CG{
 		else return "White's Turn";
 	}
 
-	private static void prepareForOpDisplay(){}
+	private static void prepareForOpDisplay(){
+		Scanner c = new Scanner(System.in);
+		System.out.print("Type row number (0-7) "); int pr = c.nextInt();
+		System.out.print("Type column number (0-7) "); int pc = c.nextInt();
+		Cell selected_piece = new Cell(pr, pc);
+		//is the piece selected owned by the player w/ current turn?
+		while (!ownedByCurrentPlayer(selected_piece)){
+			System.out.println("That's not your's!");
+			printMat(board);
+			System.out.print("Type row number (0-7) "); pr = c.nextInt();
+			System.out.print("Type column number (0-7) "); pc = c.nextInt();
+			selected_piece = new Cell(pr, pc);
+		}
+
+		//match possible moves from arraylist of possible moves to this piece
+		
+	}
+
+	private static boolean ownedByCurrentPlayer(Cell b){
+		String curplay = currentPlayer(cp);
+		String mine = board[b.getRow()][b.getCol()];
+		ChessPiece m1 = ChessPiece.getEnum(mine); 
+		if (m1 == ChessPiece.EMPTY){
+			System.out.println("That's empty..");
+			return false;
+		}
+		if (curplay.equals("White's Turn") && isWhite(m1)) return true;
+		else if (curplay.equals("Black's Turn") && isBlack(m1)) return true;
+		return false;
+	}
 
 	private static void prepareToMovePiece(){}
 
