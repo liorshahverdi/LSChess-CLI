@@ -1180,7 +1180,25 @@ public class CG{
 		//prompt for destination
 		System.out.print("Type destination row number (0-7) "); int dpr = c.nextInt();
 		System.out.print("Type destination column number (0-7) "); int dpc = c.nextInt();
-		Cell selected_piece = new Cell(dpr, dpc);
+		Cell selected_dest_piece = new Cell(dpr, dpc);
+
+		while(!valid(selected_dest_piece)){
+			System.out.println("Yeah, I don't know what you're referring to..");
+			printMat(moveCopy);
+			System.out.print("Type destination row number (0-7) "); dpr = c.nextInt();
+			System.out.print("Type destination column number (0-7) "); dpc = c.nextInt();
+			selected_dest_piece = new Cell(dpr, dpc);
+		}
+		while (!possiblePieceSelection(selected_dest_piece, thisPiecesMoves)){
+			System.out.println("Yeah, clearly that's not one of your options");
+			printMat(moveCopy);
+			System.out.print("Type destination row number (0-7) "); dpr = c.nextInt();
+			System.out.print("Type destination column number (0-7) "); dpc = c.nextInt();
+			selected_dest_piece = new Cell(dpr, dpc);	
+		}
+		board[dpr][dpc] = board[pr][pc];
+		board[pr][pc] = "-";
+		printMat(board);
 	}
 
 	private static boolean hasMoves(Cell x){
@@ -1198,11 +1216,13 @@ public class CG{
 		return true;
 	} 
 
-	private static boolean oneOfThisPiecesOptions(Cell d, String[][] mc){
-		int d_col = d.getCol(); int d_row = d.getRow();
-		System.out.println("Hey I'm in here..\t\td_col ="+d_col+" and d_row ="+d_row);
-		if (mc[d_col][d_row].equals("K") || mc[d_col][d_row].equals("X")) return true;
-		else return false;
+	private static boolean possiblePieceSelection(Cell x, ArrayList<Cell> alc){
+		for (Cell y: alc){
+			//System.out.println("r->"+x.getRow()+"\tc->"+x.getCol());
+			int y_row = y.getRow(); int y_col = y.getCol();
+			if (y_row == x.getRow() && y_col == x.getCol()) return true;
+		}
+		return false;
 	}
 
 	private static void startGame(){
