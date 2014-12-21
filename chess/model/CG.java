@@ -1109,7 +1109,7 @@ public class CG{
 	private static String toWeirdForm(Cell p){
 		int p_row = p.getRow(); int p_col = p.getCol();
 		String temp = "";
-		System.out.println("ROW IS "+p_row+" AND COL IS "+p_col);
+		//System.out.println("ROW IS "+p_row+" AND COL IS "+p_col);
 		if (p_col == 0) temp+="a"; if (p_col == 1) temp+="b"; if (p_col == 2) temp+="c"; if (p_col == 3) temp+="d";
 		if (p_col == 4) temp+="e"; if (p_col == 5) temp+="f"; if (p_col == 6) temp+="g"; if (p_col == 7) temp+="h";
 
@@ -1133,21 +1133,35 @@ public class CG{
 
 	private static void prepareToMovePiece(){
 		Scanner c = new Scanner(System.in);
-		System.out.print("Type piece row number (0-7) "); int pr = c.nextInt();
-		System.out.print("Type piece column number (0-7) "); int pc = c.nextInt();
+		System.out.print("Type source row number (0-7) "); int pr = c.nextInt();
+		System.out.print("Type source column number (0-7) "); int pc = c.nextInt();
 		Cell selected_piece = new Cell(pr, pc);
 		//is the piece selected owned by the player w/ current turn?
+		while(!valid(selected_piece)){
+			System.out.println("Yeah, I don't know what you're referring to..");
+			printMat(board);
+			System.out.print("Type source row number (0-7) "); pr = c.nextInt();
+			System.out.print("Type source column number (0-7) "); pc = c.nextInt();
+			selected_piece = new Cell(pr, pc);
+		}
 		while (!ownedByCurrentPlayer(selected_piece)){
 			System.out.println("That's not your's!");
 			printMat(board);
-			System.out.print("Type piece row number (0-7) "); pr = c.nextInt();
-			System.out.print("Type piece column number (0-7) "); pc = c.nextInt();
+			System.out.print("Type source row number (0-7) "); pr = c.nextInt();
+			System.out.print("Type source column number (0-7) "); pc = c.nextInt();
+			selected_piece = new Cell(pr, pc);
+		}
+		while (!hasMoves(selected_piece)){
+			System.out.println("The ChessPiece you selected has no options.");
+			printMat(board);
+			System.out.print("Type source row number (0-7) "); pr = c.nextInt();
+			System.out.print("Type source column number (0-7) "); pc = c.nextInt();
 			selected_piece = new Cell(pr, pc);
 		}
 		String weirdStr = toWeirdForm(selected_piece);
 		System.out.println("Werd form ->"+weirdStr);
-
-		//match possible moves from arraylist of possible moves to this piece
+		
+		ArrayList<Cell> thisPiecesMoves = new ArrayList<Cell>();
 		ArrayList<String> p = ChessPiece.possibleMoves();
 		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
@@ -1156,13 +1170,33 @@ public class CG{
 				//System.out.println("Were the same!\n"+g);
 				int thisRow = Integer.parseInt(move_props[5]);
 				int thisCol = Integer.parseInt(move_props[7]);
-
+				Cell thisCell = new Cell(thisRow,thisCol);
 				moveCopy[thisRow][thisCol] = "X";
-				System.out.println();
+				thisPiecesMoves.add(thisCell);
 			}
 		}
 		printMat(moveCopy);
+
+		//prompt for destination
+		System.out.print("Type destination row number (0-7) "); int dpr = c.nextInt();
+		System.out.print("Type destination column number (0-7) "); int dpc = c.nextInt();
+		Cell selected_piece = new Cell(dpr, dpc);
 	}
+
+	private static boolean hasMoves(Cell x){
+		ArrayList<String> p = ChessPiece.possibleMoves();
+		for (String g: p){
+			String[] move_props = g.split(" ");
+			if (move_props[2].equals(toWeirdForm(x))) return true;
+		}
+		return false;
+	}
+
+	private static boolean valid(Cell x){
+		if (x.getRow()<0 || x.getRow()>7) return false;
+		if (x.getCol()<0 || x.getCol()>7) return false;
+		return true;
+	} 
 
 	private static boolean oneOfThisPiecesOptions(Cell d, String[][] mc){
 		int d_col = d.getCol(); int d_row = d.getRow();
