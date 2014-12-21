@@ -37,7 +37,8 @@ public class CG{
 		//possible pieces (or empty) tiles
 		WHITE_CASTLE("w_c"), WHITE_KNIGHT("w_h"), WHITE_BISHOP("w_b"), WHITE_QUEEN("w_q"), WHITE_KING("w_k"), WHITE_PAWN("w_p"),
 		BLACK_CASTLE("b_c"), BLACK_KNIGHT("b_h"), BLACK_BISHOP("b_b"), BLACK_QUEEN("b_q"), BLACK_KING("b_k"), BLACK_PAWN("b_p"), 
-		EMPTY("-"); 
+		EMPTY("-"),
+		MOVE("M"); 
 	
 		private String str;
 		private ChessPiece(String s){this.str = s;}
@@ -1028,6 +1029,7 @@ public class CG{
 			System.out.print("|\t");
 		    for (String value : row)
 		    {
+		    	if (value == null) System.out.println("null\t");
 		    	if (value.equals("-")) System.out.print("-\t");
 		    	else System.out.print(value+"\t");
 		    }
@@ -1076,20 +1078,34 @@ public class CG{
 
 		//match possible moves from arraylist of possible moves to this piece
 		ArrayList<String> p = ChessPiece.possibleMoves();
+		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
 			String[] move_props = g.split(" ");
 			if (move_props[2].equals(weirdStr)){ 
-				System.out.println("Were the same!\n"+g);
-
+				//System.out.println("Were the same!\n"+g);
 				int thisRow = Integer.parseInt(move_props[5]);
 				int thisCol = Integer.parseInt(move_props[7]);
-				
-				
+
+				moveCopy[thisRow][thisCol] = "X";
 				System.out.println();
 			}
 		}
-
+		printMat(moveCopy);
 	}
+
+	public static String[][] deepCopy(String[][] x) {
+		String[][] temp = new String[8][8];
+
+		for (int i = 0; i < 8; i++) {
+			for (int j=0; j < 8; j++) {
+				temp[i][j] = board[i][j];
+			}
+		}
+		return temp;
+	}
+
+	public static void setTile(String[][] x, int r, int c, String val) { x[r][c] = val; }
+	public static String getTile(int r, int c, String[][] x) { return x[r][c]; }
 
 	private static String toWeirdForm(Cell p){
 		int p_row = p.getRow(); int p_col = p.getCol();
