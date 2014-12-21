@@ -37,8 +37,7 @@ public class CG{
 		//possible pieces (or empty) tiles
 		WHITE_CASTLE("w_c"), WHITE_KNIGHT("w_h"), WHITE_BISHOP("w_b"), WHITE_QUEEN("w_q"), WHITE_KING("w_k"), WHITE_PAWN("w_p"),
 		BLACK_CASTLE("b_c"), BLACK_KNIGHT("b_h"), BLACK_BISHOP("b_b"), BLACK_QUEEN("b_q"), BLACK_KING("b_k"), BLACK_PAWN("b_p"), 
-		EMPTY("-"),
-		MOVE("M"); 
+		EMPTY("-");
 	
 		private String str;
 		private ChessPiece(String s){this.str = s;}
@@ -1132,7 +1131,45 @@ public class CG{
 		return false;
 	}
 
-	private static void prepareToMovePiece(){}
+	private static void prepareToMovePiece(){
+		Scanner c = new Scanner(System.in);
+		System.out.print("Type piece row number (0-7) "); int pr = c.nextInt();
+		System.out.print("Type piece column number (0-7) "); int pc = c.nextInt();
+		Cell selected_piece = new Cell(pr, pc);
+		//is the piece selected owned by the player w/ current turn?
+		while (!ownedByCurrentPlayer(selected_piece)){
+			System.out.println("That's not your's!");
+			printMat(board);
+			System.out.print("Type piece row number (0-7) "); pr = c.nextInt();
+			System.out.print("Type piece column number (0-7) "); pc = c.nextInt();
+			selected_piece = new Cell(pr, pc);
+		}
+		String weirdStr = toWeirdForm(selected_piece);
+		System.out.println("Werd form ->"+weirdStr);
+
+		//match possible moves from arraylist of possible moves to this piece
+		ArrayList<String> p = ChessPiece.possibleMoves();
+		String[][] moveCopy = deepCopy(board);
+		for (String g : p){
+			String[] move_props = g.split(" ");
+			if (move_props[2].equals(weirdStr)){ 
+				//System.out.println("Were the same!\n"+g);
+				int thisRow = Integer.parseInt(move_props[5]);
+				int thisCol = Integer.parseInt(move_props[7]);
+
+				moveCopy[thisRow][thisCol] = "X";
+				System.out.println();
+			}
+		}
+		printMat(moveCopy);
+	}
+
+	private static boolean oneOfThisPiecesOptions(Cell d, String[][] mc){
+		int d_col = d.getCol(); int d_row = d.getRow();
+		System.out.println("Hey I'm in here..\t\td_col ="+d_col+" and d_row ="+d_row);
+		if (mc[d_col][d_row].equals("K") || mc[d_col][d_row].equals("X")) return true;
+		else return false;
+	}
 
 	private static void startGame(){
 		Scanner s = new Scanner(System.in);
