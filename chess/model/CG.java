@@ -1076,7 +1076,18 @@ public class CG{
 
 		//match possible moves from arraylist of possible moves to this piece
 		ArrayList<String> p = ChessPiece.possibleMoves();
-		for (String g : p){System.out.println(g);}
+		for (String g : p){
+			String[] move_props = g.split(" ");
+			if (move_props[2].equals(weirdStr)){ 
+				System.out.println("Were the same!\n"+g);
+
+				int thisRow = Integer.parseInt(move_props[5]);
+				int thisCol = Integer.parseInt(move_props[7]);
+				
+				
+				System.out.println();
+			}
+		}
 
 	}
 
