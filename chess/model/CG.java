@@ -56,8 +56,7 @@ public class CG{
 			for (String[] row : board){
 				for (String x : row){
 					ChessPiece thisPiece = ChessPiece.getEnum(x);
-					if (white_turn){
-						//if (!isWhite(thisPiece));//CAN'T LEAVE LIKE THIS
+					
 						if (thisPiece == ChessPiece.WHITE_PAWN){
 							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
@@ -917,9 +916,8 @@ public class CG{
 								}
 							}
 						}
-					}
-					if (black_turn){
-						//if (!isBlack(thisPiece));//CAN'T LEAVE LIKE THIS
+					
+					
 						if (thisPiece == ChessPiece.BLACK_PAWN){
 							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
@@ -1771,7 +1769,7 @@ public class CG{
 										move.getRow()+" c "+move.getCol());
 								}
 								else if (ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.EMPTY && 
-										isBlack(ChessPiece.getEnum(board[r-1][c-1])) &&
+										isWhite(ChessPiece.getEnum(board[r-1][c-1])) &&
 										ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r-1, c-1);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
@@ -1779,7 +1777,6 @@ public class CG{
 								}
 							}
 						}
-					}
 					i++;
 				}
 			}
