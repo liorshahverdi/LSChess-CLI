@@ -56,8 +56,7 @@ public class CG{
 			for (String[] row : board){
 				for (String x : row){
 					ChessPiece thisPiece = ChessPiece.getEnum(x);
-					
-						if (thisPiece == ChessPiece.WHITE_PAWN){
+					if (thisPiece == ChessPiece.WHITE_PAWN){
 							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -114,8 +113,8 @@ public class CG{
 									toKill.getRow()+" c "+toKill.getCol());
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.WHITE_CASTLE){
+					}
+					if (thisPiece == ChessPiece.WHITE_CASTLE){
 							//String now = "White castle @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -361,8 +360,8 @@ public class CG{
 									}
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.WHITE_KNIGHT){
+					}
+					if (thisPiece == ChessPiece.WHITE_KNIGHT){
 							//String now = "White knight @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -511,8 +510,8 @@ public class CG{
 								}
 							}
 							////////////////////
-						}
-						if (thisPiece == ChessPiece.WHITE_BISHOP){
+					}
+					if (thisPiece == ChessPiece.WHITE_BISHOP){
 							//String now = "White castle @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -599,8 +598,8 @@ public class CG{
 									dt++;
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.WHITE_QUEEN){
+					}
+					if (thisPiece == ChessPiece.WHITE_QUEEN){
 							//String now = "White castle @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -772,8 +771,8 @@ public class CG{
 									dt++;
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.WHITE_KING){
+					}
+					if (thisPiece == ChessPiece.WHITE_KING){
 							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -915,10 +914,8 @@ public class CG{
 											toKill.getRow()+" c "+toKill.getCol());
 								}
 							}
-						}
-					
-					
-						if (thisPiece == ChessPiece.BLACK_PAWN){
+					}
+					if (thisPiece == ChessPiece.BLACK_PAWN){
 							//String now = "White Pawn @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -975,8 +972,8 @@ public class CG{
 									toKill.getRow()+" c "+toKill.getCol());
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.BLACK_CASTLE){
+					}
+					if (thisPiece == ChessPiece.BLACK_CASTLE){
 							//String now = "White castle @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -1222,8 +1219,8 @@ public class CG{
 									}
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.BLACK_KNIGHT){
+					}
+					if (thisPiece == ChessPiece.BLACK_KNIGHT){
 							//String now = "Black knight @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -1372,8 +1369,8 @@ public class CG{
 								}
 							}
 							////////////////////
-						}
-						if (thisPiece == ChessPiece.BLACK_BISHOP){
+					}
+					if (thisPiece == ChessPiece.BLACK_BISHOP){
 							//String now = "Black bishop @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -1460,8 +1457,8 @@ public class CG{
 									dt++;
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.BLACK_QUEEN){
+					}
+					if (thisPiece == ChessPiece.BLACK_QUEEN){
 							//String now = "White queen @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -1633,8 +1630,8 @@ public class CG{
 									dt++;
 								}
 							}
-						}
-						if (thisPiece == ChessPiece.BLACK_KING){
+					}
+					if (thisPiece == ChessPiece.BLACK_KING){
 							//String now = "Black King @ "+ChessPiece.convertToCoords(i);
 							char c_char = ChessPiece.convertToCoords(i).charAt(0);
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
@@ -1776,14 +1773,12 @@ public class CG{
 											toKill.getRow()+" c "+toKill.getCol());
 								}
 							}
-						}
+					}
 					i++;
 				}
 			}
-
 			return temp;
 		}
-
 
 		private static ChessPiece getEnum(String str) {
 			for (ChessPiece t: ChessPiece.values()){
@@ -1863,7 +1858,7 @@ public class CG{
 		    	if (value.equals("-")) System.out.print("-\t");
 		    	else System.out.print(value+"\t");
 		    }
-		    System.out.print("|\n");
+		    System.out.print("|\n\n");
 		}
 		System.out.println("--------------------------------------------------------------------------");
 	}
@@ -1904,7 +1899,6 @@ public class CG{
 			selected_piece = new Cell(pr, pc);
 		}
 		String weirdStr = toWeirdForm(selected_piece);
-		System.out.println("Werd form ->"+weirdStr);
 
 		//match possible moves from arraylist of possible moves to this piece
 		ArrayList<String> p = ChessPiece.possibleMoves();
@@ -1990,7 +1984,6 @@ public class CG{
 			selected_piece = new Cell(pr, pc);
 		}
 		String weirdStr = toWeirdForm(selected_piece);
-		System.out.println("Werd form ->"+weirdStr);
 		
 		ArrayList<Cell> thisPiecesMoves = new ArrayList<Cell>();
 		ArrayList<String> p = ChessPiece.possibleMoves();
@@ -2091,8 +2084,6 @@ public class CG{
 			flipMat(board);
 			//mate = true;
 		}
-		//ArrayList<Properties> p = ChessPiece.possibleMoves();
-		//System.out.println(currentPlayer(cp));
 	}
 	public static void main(String[] args){ CG m = new CG(); }
 }
