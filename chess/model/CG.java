@@ -2144,6 +2144,7 @@ public class CG {
 		printMat(board);
 	}
 
+	//this needs to go
 	private static boolean disturbesAKing(String[] prop){
 		int p_row = Integer.parseInt(prop[5]); int p_col = Integer.parseInt(prop[7]);
 		String tok_str = board[p_row][p_col];
