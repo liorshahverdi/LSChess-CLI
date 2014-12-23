@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class CG{
-	public static String[][] board;
-	public static int cp;//will be modded by 2 at each iteration
+public class CG {
+	private static boolean check = false;
+	private static String[][] board;
+	private static int cp;//will be modded by 2 at each iteration
 	public ArrayList<ChessPiece> offBoard;
 
 	public CG(){
@@ -1995,6 +1996,8 @@ public class CG{
 		else return "White's Turn";
 	}
 
+	private static boolean currentCheckStatus() {return check; }
+
 	private static void prepareForOpDisplay(){
 		Scanner c = new Scanner(System.in);
 		System.out.print("Type row number (0-7) "); int pr = c.nextInt();
@@ -2099,14 +2102,16 @@ public class CG{
 		ArrayList<String> p = ChessPiece.possibleMoves();
 		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
-			System.out.println("->"+g);
 			String[] move_props = g.split(" ");
 			if (move_props[2].equals(weirdStr)){ 
 				//System.out.println("Were the same!\n"+g);
 				int thisRow = Integer.parseInt(move_props[5]);
 				int thisCol = Integer.parseInt(move_props[7]);
 				Cell thisCell = new Cell(thisRow,thisCol);
-				if (move_props[3].equals("kill")) moveCopy[thisRow][thisCol] = "Trgt"; 
+				if (move_props[3].equals("kill")) {
+					if(isAKing()) check = true; 	
+					moveCopy[thisRow][thisCol] = "Trgt"; 
+				}
 				else moveCopy[thisRow][thisCol] = "X";
 				thisPiecesMoves.add(thisCell);
 			}
@@ -2134,6 +2139,8 @@ public class CG{
 		}
 		board[dpr][dpc] = board[pr][pc];
 		board[pr][pc] = "-";
+		ArrayList<String> posib_check = ChessPiece.possibleMoves();
+		for (String x: posib_check){System.out.println("->"+x);}
 		printMat(board);
 	}
 
@@ -2168,6 +2175,7 @@ public class CG{
 		while(!mate){
 			//ArrayList<String> p = ChessPiece.possibleMoves();
 			//for (String g : p){System.out.println(g);}
+			if (check) System.out.println("CHECK!!");//BUILD LOGIC FOR THIS
 			System.out.println(currentPlayer(cp));
 			printMat(board);
 			
