@@ -2109,7 +2109,7 @@ public class CG {
 				int thisCol = Integer.parseInt(move_props[7]);
 				Cell thisCell = new Cell(thisRow,thisCol);
 				if (move_props[3].equals("kill")) {
-					if(isAKing()) check = true; 	
+					if(disturbesAKing(move_props)) check = true; 	
 					moveCopy[thisRow][thisCol] = "Trgt"; 
 				}
 				else moveCopy[thisRow][thisCol] = "X";
@@ -2142,6 +2142,15 @@ public class CG {
 		ArrayList<String> posib_check = ChessPiece.possibleMoves();
 		for (String x: posib_check){System.out.println("->"+x);}
 		printMat(board);
+	}
+
+	private static boolean disturbesAKing(String[] prop){
+		int p_row = Integer.parseInt(prop[5]); int p_col = Integer.parseInt(prop[7]);
+		String tok_str = board[p_row][p_col];
+		ChessPiece possiblyKing = ChessPiece.getEnum(tok_str);
+		if (currentPlayer(cp).equals("White's Turn")) return possiblyKing == ChessPiece.BLACK_KING;
+		else if (currentPlayer(cp).equals("Black's Turn")) return possiblyKing == ChessPiece.WHITE_KING;
+		return false;
 	}
 
 	private static boolean hasMoves(Cell x){
@@ -2179,24 +2188,24 @@ public class CG {
 			System.out.println(currentPlayer(cp));
 			printMat(board);
 			
-			System.out.println("Type 'see ops' or 'move piece'");
+			System.out.println("Type 'so' to see ops or 'mp' to move piece");
 			String inpt = s.nextLine();
-			while ((!inpt.equals("see ops")) && (!inpt.equals("move piece"))){//keep waiting for proper input
-				System.out.println("Not an option, friend. Type 'see ops' or 'move piece'");
+			while ((!inpt.equals("so")) && (!inpt.equals("mp"))){//keep waiting for proper input
+				System.out.println("Not an option, friend. Type 'so' to see ops or 'mp' to move piece");
 				inpt = s.nextLine();
 			}
-			if (inpt.equals("see ops")){
-				while(inpt.equals("see ops")){
+			if (inpt.equals("so")){
+				while(inpt.equals("so")){
 					prepareForOpDisplay();
-					System.out.println("Type 'see ops' or 'move piece'");
+					System.out.println("Not an option, friend. Type 'so' to see ops or 'mp' to move piece");
 					inpt = s.nextLine();
-					while((!inpt.equals("see ops")) && (!inpt.equals("move piece"))){
-						System.out.println("Not an option, friend. Type 'see ops' or 'move piece'");
+					while((!inpt.equals("so")) && (!inpt.equals("mp"))){
+						System.out.println("Not an option, friend. Type 'so' to see ops or 'mp' to move piece");
 						inpt = s.nextLine();
 					}
 				}
 			}
-			if (inpt.equals("move piece")){
+			if (inpt.equals("mp")){
 				prepareToMovePiece();
 			}
 
