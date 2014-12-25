@@ -2134,12 +2134,20 @@ public class CG{
 			System.out.print("Type destination column number (0-7) "); dpc = c.nextInt();
 			selected_dest_piece = new Cell(dpr, dpc);	
 		}
-
-		check = true;
-		System.out.println("Checkstat is "+check);
 		
 		board[dpr][dpc] = board[pr][pc];
 		board[pr][pc] = "-";
+
+		ArrayList<String> post_move_ops = ChessPiece.possibleMoves();
+		for (String x: post_move_ops){
+			String[] x_prop = x.split(" ");
+			if (x_prop[3].equals("kill")){
+				int pkrow = Integer.parseInt(x_prop[5]); int pkcol = Integer.parseInt(x_prop[7]);
+				String token = board[pkrow][pkcol]; ChessPiece pk = ChessPiece.getEnum(token);
+				if (currentPlayer(cp).equals("White's Turn") && pk == ChessPiece.BLACK_KING) check = true;
+				else if (currentPlayer(cp).equals("Black's Turn") && pk == ChessPiece.WHITE_KING) check = true;
+			}
+		}
 
 		printMat(board);
 	}
