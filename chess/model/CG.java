@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class CG {
-	private static boolean check = false;
+	private static boolean check;
 	private static String[][] board;
 	private static int cp;//will be modded by 2 at each iteration
 	public ArrayList<ChessPiece> offBoard;
 
 	public CG(){
+		check = false;
 		cp = 1;
 		board = new String[][]{
 			{"b_c","b_h","b_b","b_k","b_q","b_b","b_h","b_c"},
@@ -1996,7 +1997,7 @@ public class CG {
 		else return "White's Turn";
 	}
 
-	private static boolean currentCheckStatus() {return check; }
+	private static boolean currentCheckStatus() { return check; }
 
 	private static void prepareForOpDisplay(){
 		Scanner c = new Scanner(System.in);
@@ -2071,6 +2072,7 @@ public class CG {
 
 	private static void prepareToMovePiece(){
 		Scanner c = new Scanner(System.in);
+		boolean make_check = false;
 		System.out.print("Type source row number (0-7) "); int pr = c.nextInt();
 		System.out.print("Type source column number (0-7) "); int pc = c.nextInt();
 		Cell selected_piece = new Cell(pr, pc);
@@ -2109,7 +2111,7 @@ public class CG {
 				int thisCol = Integer.parseInt(move_props[7]);
 				Cell thisCell = new Cell(thisRow,thisCol);
 				if (move_props[3].equals("kill")) {
-					if(disturbesAKing(move_props)) check = true; 	
+					if(disturbesAKing(move_props)) make_check = true; 	
 					moveCopy[thisRow][thisCol] = "Trgt"; 
 				}
 				else moveCopy[thisRow][thisCol] = "X";
@@ -2137,10 +2139,18 @@ public class CG {
 			System.out.print("Type destination column number (0-7) "); dpc = c.nextInt();
 			selected_dest_piece = new Cell(dpr, dpc);	
 		}
+		if (check){
+			boolean stillInCheck = true;
+		}
 		board[dpr][dpc] = board[pr][pc];
 		board[pr][pc] = "-";
-		ArrayList<String> posib_check = ChessPiece.possibleMoves();
-		for (String x: posib_check){System.out.println("->"+x);}
+		
+		/*ArrayList<String> posib_check = ChessPiece.possibleMoves();
+		for (String x: posib_check){
+			/*String[] x_props = x.split(" ");
+			if (disturbesAKing(x_props)) check = true;
+		}*/
+		if (make_check) check = true;
 		printMat(board);
 	}
 
@@ -2179,8 +2189,7 @@ public class CG {
 	}
 
 	private static void startGame(){
-		Scanner s = new Scanner(System.in);
-		boolean check = false;
+		Scanner s = new Scanner(System.in);		
 		boolean mate = false;
 		while(!mate){
 			//ArrayList<String> p = ChessPiece.possibleMoves();
