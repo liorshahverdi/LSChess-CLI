@@ -1,32 +1,32 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class CG {
-	private static boolean check;
-	private static String[][] board;
-	private static int cp;//will be modded by 2 at each iteration
+public class CG{
+	public static boolean check;
+	public static String[][] board;
+	public static int cp;//will be modded by 2 at each iteration
 	public ArrayList<ChessPiece> offBoard;
 
 	public CG(){
 		check = false;
 		cp = 1;
 		board = new String[][]{
-			{"b_c","b_h","b_b","b_k","b_q","b_b","b_h","b_c"},
+			/*{"b_c","b_h","b_b","b_k","b_q","b_b","b_h","b_c"},
 			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
-			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}
+			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}*/
 
-			/*{"-",  "-",  "-",  "b_k",  "b_q",  "b_b","b_n",  "b_c"},
-			{"-",  "-",  "-",  "b_p",  "b_p",  "b_p","b_p",  "b_p"},
-			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-",  "-"  ,  "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-"  ,"-"  ,  "-"  ,  "-"  ,  "w_k"  ,  "-"  ,"-"  ,  "-"  },
-			{"-"  ,"-",   "-"  ,  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-",  "-"  ,  "-",    "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  },
-			{"-",  "-"  ,  "-",  "-"  ,  "-"  ,  "-"  ,"-"  ,  "-"  }*/
+			{"-","-","-","b_k","-","-","-","-"},
+			{"-","-","-","-","-","-","-","-"},
+			{"-",  "-"  ,"-"  ,"w_p"  ,"w_p"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
+			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -1997,8 +1997,6 @@ public class CG {
 		else return "White's Turn";
 	}
 
-	private static boolean currentCheckStatus() { return check; }
-
 	private static void prepareForOpDisplay(){
 		Scanner c = new Scanner(System.in);
 		System.out.print("Type row number (0-7) "); int pr = c.nextInt();
@@ -2072,7 +2070,6 @@ public class CG {
 
 	private static void prepareToMovePiece(){
 		Scanner c = new Scanner(System.in);
-		boolean make_check = false;
 		System.out.print("Type source row number (0-7) "); int pr = c.nextInt();
 		System.out.print("Type source column number (0-7) "); int pc = c.nextInt();
 		Cell selected_piece = new Cell(pr, pc);
@@ -2104,16 +2101,14 @@ public class CG {
 		ArrayList<String> p = ChessPiece.possibleMoves();
 		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
+			//System.out.println("->"+g);
 			String[] move_props = g.split(" ");
 			if (move_props[2].equals(weirdStr)){ 
 				//System.out.println("Were the same!\n"+g);
 				int thisRow = Integer.parseInt(move_props[5]);
 				int thisCol = Integer.parseInt(move_props[7]);
 				Cell thisCell = new Cell(thisRow,thisCol);
-				if (move_props[3].equals("kill")) {
-					if(disturbesAKing(move_props)) make_check = true; 	
-					moveCopy[thisRow][thisCol] = "Trgt"; 
-				}
+				if (move_props[3].equals("kill")) moveCopy[thisRow][thisCol] = "Trgt"; 
 				else moveCopy[thisRow][thisCol] = "X";
 				thisPiecesMoves.add(thisCell);
 			}
@@ -2139,29 +2134,14 @@ public class CG {
 			System.out.print("Type destination column number (0-7) "); dpc = c.nextInt();
 			selected_dest_piece = new Cell(dpr, dpc);	
 		}
-		if (check){
-			boolean stillInCheck = true;
-		}
+
+		check = true;
+		System.out.println("Checkstat is "+check);
+		
 		board[dpr][dpc] = board[pr][pc];
 		board[pr][pc] = "-";
-		
-		/*ArrayList<String> posib_check = ChessPiece.possibleMoves();
-		for (String x: posib_check){
-			/*String[] x_props = x.split(" ");
-			if (disturbesAKing(x_props)) check = true;
-		}*/
-		if (make_check) check = true;
-		printMat(board);
-	}
 
-	//this needs to go
-	private static boolean disturbesAKing(String[] prop){
-		int p_row = Integer.parseInt(prop[5]); int p_col = Integer.parseInt(prop[7]);
-		String tok_str = board[p_row][p_col];
-		ChessPiece possiblyKing = ChessPiece.getEnum(tok_str);
-		if (currentPlayer(cp).equals("White's Turn")) return possiblyKing == ChessPiece.BLACK_KING;
-		else if (currentPlayer(cp).equals("Black's Turn")) return possiblyKing == ChessPiece.WHITE_KING;
-		return false;
+		printMat(board);
 	}
 
 	private static boolean hasMoves(Cell x){
@@ -2189,28 +2169,26 @@ public class CG {
 	}
 
 	private static void startGame(){
-		Scanner s = new Scanner(System.in);		
+		Scanner s = new Scanner(System.in);
 		boolean mate = false;
 		while(!mate){
-			//ArrayList<String> p = ChessPiece.possibleMoves();
-			//for (String g : p){System.out.println(g);}
-			if (check) System.out.println("CHECK!!");//BUILD LOGIC FOR THIS
+			if (check) System.out.println("CHECK!!!");
 			System.out.println(currentPlayer(cp));
 			printMat(board);
 			
-			System.out.println("Type 'so' to see ops or 'mp' to move piece");
+			System.out.println("Type 'so' to see options or 'mp' to move piece");
 			String inpt = s.nextLine();
 			while ((!inpt.equals("so")) && (!inpt.equals("mp"))){//keep waiting for proper input
-				System.out.println("Not an option, friend. Type 'so' to see ops or 'mp' to move piece");
+				System.out.println("Not an option, friend. Type 'so' or 'mp'");
 				inpt = s.nextLine();
 			}
 			if (inpt.equals("so")){
 				while(inpt.equals("so")){
 					prepareForOpDisplay();
-					System.out.println("Not an option, friend. Type 'so' to see ops or 'mp' to move piece");
+					System.out.println("Type 'so' to see options or 'mp' to move piece");
 					inpt = s.nextLine();
 					while((!inpt.equals("so")) && (!inpt.equals("mp"))){
-						System.out.println("Not an option, friend. Type 'so' to see ops or 'mp' to move piece");
+						System.out.println("Not an option, friend. Type 'so' to see options or 'mp' to move piece");
 						inpt = s.nextLine();
 					}
 				}
