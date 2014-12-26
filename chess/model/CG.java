@@ -22,12 +22,12 @@ public class CG{
 			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}*/
 
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"b_k"},
-			{"-",  "-"  ,"-"  ,"-"  ,"w_q","-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-","-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"w_c",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"w_c"  ,"-"  ,"-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
@@ -963,13 +963,14 @@ public class CG{
 							int c = toGridFormat(c_char);//current piece's column
 							int r = toGridFormat(r_char);//current piece's row
 							//check in front
-							if (ChessPiece.getEnum(b[r-1][c]) == ChessPiece.EMPTY){
-								//System.out.println("w_p move to row "+(r-1)+" column "+c);
-								Cell move = new Cell(r-1, c);
-								temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
-								move.getRow()+" c "+move.getCol());
+							if (r-1 >= 0){	
+								if (ChessPiece.getEnum(b[r-1][c]) == ChessPiece.EMPTY){
+									//System.out.println("w_p move to row "+(r-1)+" column "+c);
+									Cell move = new Cell(r-1, c);
+									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
+									move.getRow()+" c "+move.getCol());
+								}
 							}
-
 							//2 in front if pawn's first move
 							if (r == 6){
 								if (ChessPiece.getEnum(b[r-2][c]) == ChessPiece.EMPTY){
@@ -2000,13 +2001,9 @@ public class CG{
 		ArrayList<String> p = ChessPiece.possibleMoves(board);
 
 		//System.out.println("BEFORE");
-		for (String e : p ){ System.out.println(e); }
+		//for (String e : p ){ System.out.println(e); }
 		
-		if (check) { 
-			p = edit(p);
-			//System.out.println("AFTER");
-			for (String a : p ){ System.out.println(a); } 
-		}
+		p = edit(p);
 		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
 			String[] move_props = g.split(" ");
@@ -2058,16 +2055,6 @@ public class CG{
 
 		return false;
 	}
-
-/*
-	have a list of moves
-	have a deep copy of the board
-
-	for each move, perform it on a DC
-	generate new arrlist of moves for move from 1 step above
-	if any cells from this arrlist contain player's king as destination, remove this move
-
-*/
 
 	public static String[][] deepCopy(String[][] x) {
 		String[][] temp = new String[8][8];
@@ -2139,7 +2126,7 @@ public class CG{
 		
 		ArrayList<Cell> thisPiecesMoves = new ArrayList<Cell>();
 		ArrayList<String> p = ChessPiece.possibleMoves(board);
-		if (check) p = edit(p);
+		p = edit(p);
 		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
 			//System.out.println("->"+g);
@@ -2218,43 +2205,6 @@ public class CG{
 		return false;
 	}
 
-	/*private static void startGame(){
-		Scanner s = new Scanner(System.in);
-		while(!mate){
-			if (check) {
-				if (sizeOfCurrentPlayerMoveList() == 0){
-					mate = true;
-					System.out.println("CHECK MATE!!");
-					break;
-				}
-				else System.out.println("CHECK!!!");
-			}
-			System.out.println(currentPlayer(cp));
-			printMat(board);
-			
-			System.out.println("Type 'so' to see options or 'mp' to move piece");
-			String inpt = s.nextLine();
-			while ((!inpt.equals("so")) && (!inpt.equals("mp"))){//keep waiting for proper input
-				System.out.println("Not an option, friend. Type 'so' or 'mp'");
-				inpt = s.nextLine();
-			}
-			if (inpt.equals("so")){
-				while(inpt.equals("so")){
-					prepareForOpDisplay();
-					System.out.println("Type 'so' to see options or 'mp' to move piece");
-					inpt = s.nextLine();
-					while((!inpt.equals("so")) && (!inpt.equals("mp"))){
-						System.out.println("Not an option, friend. Type 'so' to see options or 'mp' to move piece");
-						inpt = s.nextLine();
-					}
-				}
-			}
-			if (inpt.equals("mp")){ prepareToMovePiece(); }
-			cp++;
-			flipMat(board);
-		}
-	}*/
-
 	private static void waitForValInput(){
 		Scanner s = new Scanner(System.in);
 		System.out.println("Usage: Type\t'so' to see options\t'mp' to move piece."); String inpt = s.nextLine();
@@ -2279,11 +2229,6 @@ public class CG{
 	private static boolean gameOver(){
 		ArrayList<String> moovz = ChessPiece.possibleMoves(board);
 		if (check) moovz = edit(moovz);
-		/*if (moovz.size() == 0) {
-			System.out.println("CHECK MATE!");
-			String my_cp = currentPlayer(cp).substring(0,5); System.out.println(my_cp+ " won this match.");
-			return true;
-		}*/
 		int numOfCurrentPlayersMoves = 0;
 		for (String r : moovz){
 			String[] rprops = r.split(" "); String piece = rprops[0]; //System.out.println("->"+piece+"\t"+currentPlayer(cp)+" check?="+check);
