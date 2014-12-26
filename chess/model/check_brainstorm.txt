@@ -5,3 +5,51 @@ when p1 move ends
 			compute all moves until p2 is out of check - i.e. do not accept moves from p2 that allow p2 to remain in check when her/his turn is complete
 
 ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+ move.getRow()+" c "+move.getCol()
+
+Type 'so' to see options or 'mp' to move piece
+so
+Type row number (0-7) 7
+Type column number (0-7) 4
+BEFORE
+WHITE_PAWN @ e3 goto r 6 c 4
+WHITE_PAWN @ d2 goto r 7 c 3
+WHITE_PAWN @ d2 kill r 7 c 4
+WHITE_PAWN @ d2 kill r 7 c 2
+BLACK_BISHOP @ c1 goto r 6 c 1
+BLACK_BISHOP @ c1 goto r 5 c 0
+BLACK_BISHOP @ c1 kill r 6 c 3
+BLACK_KING @ e1 goto r 6 c 4
+BLACK_KING @ e1 goto r 6 c 5
+BLACK_KING @ e1 goto r 7 c 5
+BLACK_KING @ e1 goto r 7 c 3
+BLACK_KING @ e1 kill r 6 c 3
+AFTER
+WHITE_PAWN @ e3 goto r 6 c 4
+WHITE_PAWN @ d2 goto r 7 c 3
+WHITE_PAWN @ d2 kill r 7 c 2
+BLACK_BISHOP @ c1 goto r 6 c 1
+BLACK_BISHOP @ c1 goto r 5 c 0
+BLACK_KING @ e1 goto r 6 c 4
+BLACK_KING @ e1 goto r 6 c 5
+BLACK_KING @ e1 goto r 7 c 5
+BLACK_KING @ e1 goto r 7 c 3
+Did that editing like a baws
+--------------------------------------------------------------------------
+|       -       -       -       -       -       -       -       -       |
+
+|       -       -       -       -       -       -       -       -       |
+
+|       -       -       -       -       -       -       -       -       |
+
+|       -       -       -       -       -       -       -       -       |
+
+|       -       -       -       -       -       -       -       -       |
+
+|       -       -       -       -       w_p     -       -       -       |
+
+|       -       -       -       w_p     X       X       -       -       |
+
+|       -       -       b_b     X       b_k     X       -       -       |
+
+--------------------------------------------------------------------------
+Type 'so' to see options or 'mp' to move piece

@@ -21,7 +21,7 @@ public class CG{
 			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
 			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}*/
 
-			{"-","-","-","b_k","-","b_b","-","-"},
+			{"-","-","-","b_k","-","-","-","-"},
 			{"-","-","-","-","-","-","-","-"},
 			{"-",  "-"  ,"-"  ,"w_p"  ,"w_p"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
@@ -1999,14 +1999,13 @@ public class CG{
 		//match possible moves from arraylist of possible moves to this piece
 		ArrayList<String> p = ChessPiece.possibleMoves(board);
 
-		System.out.println("BEFORE");
+		//System.out.println("BEFORE");
 		for (String e : p ){ System.out.println(e); }
 		
 		if (check) { 
 			p = edit(p);
-			System.out.println("AFTER");
+			//System.out.println("AFTER");
 			for (String a : p ){ System.out.println(a); } 
-			System.out.println("Did that editing like a baws"); 
 		}
 		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
@@ -2023,38 +2022,41 @@ public class CG{
 	}
 
 	public static ArrayList<String> edit(ArrayList<String> w){ 
+		System.out.println("IN EDIT");
 		ArrayList<String> temp = new ArrayList<String>();
 		for (String ah: w){
-			//System.out.println("->"+ah);
-			String[][] idc = deepCopy(board);
-
-			String[] move_prop = ah.split(" "); 
-			
-			//convert source
-			String srcStr = move_prop[2]; char roch = srcStr.charAt(0); char coch = srcStr.charAt(1);
-										  int ro = ChessPiece.toGridFormat(roch); int co = ChessPiece.toGridFormat(coch);
-
-			//convert destination
-			int dr = Integer.parseInt(move_prop[5]); int dc = Integer.parseInt(move_prop[7]);
-
-			//perform move
-			idc[dr][dc] = idc[ro][co];		idc[ro][co]="-";
-
-			ArrayList<String> newListforThisMove = ChessPiece.possibleMoves(idc);
-			System.out.println("LET'S GOO");
-			///for (String b : newListforThisMove){System.out.println(b);}
-			if (willLeaveUsInCheck(newListforThisMove, idc)){ temp.add(ah); }
+			//System.out.println(ah);
+			String[] ahp = ah.split(" ");
+			String srcstr = ahp[2]; char ch_srcco = srcstr.charAt(0); char ch_srcro = srcstr.charAt(1);
+			int srcco = ChessPiece.toGridFormat(ch_srcco); int srcro = ChessPiece.toGridFormat(ch_srcro);
+			//System.out.println("src row is "+srcro+" and src col is"+srcco);
+			int dest_row = Integer.parseInt(ahp[5]); int dest_col = Integer.parseInt(ahp[7]);
+			//System.out.println("dest row is "+dest_row+" and dest col is "+dest_col+"--------------------");
+			String[][] myCopy = deepCopy(board);
+			myCopy[dest_row][dest_col] = myCopy[srcro][srcco]; myCopy[srcro][srcco] = "-";
+			//printMat(myCopy);
+			if (!willLeaveUsInCheck(myCopy)) temp.add(ah); 
 		}
 		return temp;
 	}
 
-	public static boolean willLeaveUsInCheck(ArrayList<String> t, String[][] b){
-		for (String u : t){
-			String[] upro = u.split(" "); int row = Integer.parseInt(upro[5]); int col = Integer.parseInt(upro[7]);
-			String pieceStr = b[row][col]; ChessPiece piece = ChessPiece.getEnum(pieceStr);
-			if (currentPlayer(cp).equals("White's Turn") && piece == ChessPiece.WHITE_KING) return true;
-			if (currentPlayer(cp).equals("Black's Turn") && piece == ChessPiece.BLACK_KING) return true;
+	public static boolean willLeaveUsInCheck(String[][] b){
+		ArrayList<String> myArrList = ChessPiece.possibleMoves(b);//all moves generated for current move
+		//System.out.println("\nMoves for this move");
+		for (String c: myArrList){
+			String[] cprop = c.split(" "); int row = Integer.parseInt(cprop[5]); int col = Integer.parseInt(cprop[7]);
+			String pStr = b[row][col]; ChessPiece piece = ChessPiece.getEnum(pStr); 
+			if (currentPlayer(cp).equals("White's Turn")){
+				if (piece == ChessPiece.WHITE_KING) {
+					//System.out.println("My king @ destination!");
+					return true;
+				}
+			}
+			if (currentPlayer(cp).equals("Black's Turn")){
+				if (piece == ChessPiece.BLACK_KING) return true;
+			}
 		}
+
 		return false;
 	}
 
