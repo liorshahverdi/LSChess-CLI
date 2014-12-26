@@ -3,3 +3,5 @@ when p1 move ends
 	--> p2s in check
 		if p2s in check
 			compute all moves until p2 is out of check - i.e. do not accept moves from p2 that allow p2 to remain in check when her/his turn is complete
+
+ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+ move.getRow()+" c "+move.getCol()
