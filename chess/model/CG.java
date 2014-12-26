@@ -979,7 +979,7 @@ public class CG{
 							int c = toGridFormat(c_char);//current piece's column
 							int r = toGridFormat(r_char);//current piece's row
 							//check in front
-							if (ChessPiece.getEnum(board[r-1][c]) == ChessPiece.EMPTY){
+							if (ChessPiece.getEnum(b[r-1][c]) == ChessPiece.EMPTY){
 								//System.out.println("w_p move to row "+(r-1)+" column "+c);
 								Cell move = new Cell(r-1, c);
 								temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
@@ -988,7 +988,7 @@ public class CG{
 
 							//2 in front if pawn's first move
 							if (r == 6){
-								if (ChessPiece.getEnum(board[r-2][c]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-2][c]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r-2, c);
 									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
@@ -999,7 +999,7 @@ public class CG{
 							//check if left-edge pawn
 							if (c == 0){
 								//only check top-right-diag for kill option
-								if ((ChessPiece.getEnum(board[r-1][c+1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(board[r-1][c+1]))){
+								if ((ChessPiece.getEnum(b[r-1][c+1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(b[r-1][c+1]))){
 									Cell toKill = new Cell(r-1, c+1);
 									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 									toKill.getRow()+" c "+toKill.getCol());
@@ -1008,7 +1008,7 @@ public class CG{
 							//check if right-edge pawn
 							else if (c == 7){
 								//only check top-left-diag for kill option
-								if ((ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(board[r-1][c-1]))){
+								if ((ChessPiece.getEnum(b[r-1][c-1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(b[r-1][c-1]))){
 									Cell toKill = new Cell(r-1, c-1);
 									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 									toKill.getRow()+" c "+toKill.getCol());
@@ -1016,14 +1016,14 @@ public class CG{
 							}
 							else{
 								//check top-left diagonal FOR KILL OPTION
-								if ((ChessPiece.getEnum(board[r-1][c-1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(board[r-1][c-1]))){
+								if ((ChessPiece.getEnum(b[r-1][c-1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r-1][c-1]))){
 									Cell toKill = new Cell(r-1, c-1);
 									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 									toKill.getRow()+" c "+toKill.getCol());
 								}
 								
 								//check top-right diagonal for KILL OPTION
-								if ((ChessPiece.getEnum(board[r-1][c+1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(board[r-1][c+1]))){
+								if ((ChessPiece.getEnum(b[r-1][c+1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r-1][c+1]))){
 									Cell toKill = new Cell(r-1, c+1);
 									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 									toKill.getRow()+" c "+toKill.getCol());
@@ -1035,7 +1035,7 @@ public class CG{
 
 								//check in front
 								if (r+1<=7){
-									if (ChessPiece.getEnum(board[r+1][c]) == ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r+1][c]) == ChessPiece.EMPTY){
 										//System.out.println("w_p move to row "+(r-1)+" column "+c);
 										Cell move = new Cell(r+1, c);
 										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
@@ -1046,7 +1046,7 @@ public class CG{
 								//2 in front if pawn's first move
 								
 								if (r == 1 && (r+2<=7)){
-									if (ChessPiece.getEnum(board[r+2][c]) == ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r+2][c]) == ChessPiece.EMPTY){
 										//System.out.println("w_p move to row "+(r-1)+" column "+c);
 										Cell move = new Cell(r+2, c);
 										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
@@ -1057,7 +1057,7 @@ public class CG{
 									//check if right-edge pawn
 									if (c == 7){
 										//only check bottom-left-diag for kill option
-										if ((ChessPiece.getEnum(board[r+1][c-1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(board[r+1][c-1]))){
+										if ((ChessPiece.getEnum(b[r+1][c-1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(b[r+1][c-1]))){
 											Cell toKill = new Cell(r+1, c-1);
 											temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1067,7 +1067,7 @@ public class CG{
 								else{
 									if((r+1>= 0 && r+1<=7) && (c+1>=0 && c+1<=7)){
 										//check bottom-right diagonal FOR KILL OPTION
-										if ((ChessPiece.getEnum(board[r+1][c+1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(board[r+1][c+1]))){
+										if ((ChessPiece.getEnum(b[r+1][c+1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r+1][c+1]))){
 											Cell toKill = new Cell(r+1, c+1);
 											temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1076,7 +1076,7 @@ public class CG{
 									
 									if ((r+1>= 0 && r+1<=7) && (c-1>=0 && c-1<=7)) {
 										//check top-right diagonal for KILL OPTION
-										if ((ChessPiece.getEnum(board[r+1][c-1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(board[r+1][c-1]))){
+										if ((ChessPiece.getEnum(b[r+1][c-1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r+1][c-1]))){
 											Cell toKill = new Cell(r+1, c-1);
 											temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1101,9 +1101,9 @@ public class CG{
 								boolean collision_right = false;
 								while (!collision_right){
 									if (c+dt == 8) break;
-									if (ChessPiece.getEnum(board[r][c+dt]) != ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r][c+dt]) != ChessPiece.EMPTY){
 										//check for kill option
-										if (isWhite(ChessPiece.getEnum(board[r][c+dt]))){
+										if (isWhite(ChessPiece.getEnum(b[r][c+dt]))){
 											Cell toKill = new Cell(r, c+dt);
 											temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1124,9 +1124,9 @@ public class CG{
 								boolean collision_up = false;
 								while (!collision_up){
 									if (r-dt == -1) break;
-									if (ChessPiece.getEnum(board[r-dt][c]) != ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r-dt][c]) != ChessPiece.EMPTY){
 										//check for kill option
-										if (isWhite(ChessPiece.getEnum(board[r-dt][c]))){
+										if (isWhite(ChessPiece.getEnum(b[r-dt][c]))){
 											Cell toKill = new Cell(r-dt, c);
 											temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1146,9 +1146,9 @@ public class CG{
 								boolean collision_down = false;
 								while(!collision_down){
 									if (r+dt==8) break;
-									if (ChessPiece.getEnum(board[r+dt][c]) != ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r+dt][c]) != ChessPiece.EMPTY){
 										//check for kill option
-										if (isWhite(ChessPiece.getEnum(board[r+dt][c]))){
+										if (isWhite(ChessPiece.getEnum(b[r+dt][c]))){
 											Cell toKill = new Cell(r+dt, c);
 											temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1170,9 +1170,9 @@ public class CG{
 								boolean collision_left = false;
 								while(!collision_left){
 									if (c-dt == -1) break;
-									if (ChessPiece.getEnum(board[r][c-dt]) != ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r][c-dt]) != ChessPiece.EMPTY){
 										//check for kill option
-										if (isWhite(ChessPiece.getEnum(board[r][c-dt]))){
+										if (isWhite(ChessPiece.getEnum(b[r][c-dt]))){
 											Cell toKill = new Cell(r, c-dt);
 											temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1192,9 +1192,9 @@ public class CG{
 								boolean collision_right = false;
 								while (!collision_right){
 									if (c+dt == 8) break;
-									if (ChessPiece.getEnum(board[r][c+dt]) != ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r][c+dt]) != ChessPiece.EMPTY){
 										//check for kill option
-										if (isWhite(ChessPiece.getEnum(board[r][c+dt]))){
+										if (isWhite(ChessPiece.getEnum(b[r][c+dt]))){
 											Cell toKill = new Cell(r, c+dt);
 											temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1216,9 +1216,9 @@ public class CG{
 									boolean collision_up = false;
 									while (!collision_up){
 										if (r-dt == -1) break;
-										if (ChessPiece.getEnum(board[r-dt][c]) != ChessPiece.EMPTY){
+										if (ChessPiece.getEnum(b[r-dt][c]) != ChessPiece.EMPTY){
 											//check for kill option
-											if (isWhite(ChessPiece.getEnum(board[r-dt][c]))){
+											if (isWhite(ChessPiece.getEnum(b[r-dt][c]))){
 												Cell toKill = new Cell(r-dt, c);
 												temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 												toKill.getRow()+" c "+toKill.getCol());
@@ -1240,9 +1240,9 @@ public class CG{
 									boolean collision_down = false;
 									while(!collision_down){
 										if (r+dt==8) break;
-										if (ChessPiece.getEnum(board[r+dt][c]) != ChessPiece.EMPTY){
+										if (ChessPiece.getEnum(b[r+dt][c]) != ChessPiece.EMPTY){
 											//check for kill option
-											if (isWhite(ChessPiece.getEnum(board[r+dt][c]))){
+											if (isWhite(ChessPiece.getEnum(b[r+dt][c]))){
 												Cell toKill = new Cell(r+dt, c);
 												temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 												toKill.getRow()+" c "+toKill.getCol());
@@ -1265,9 +1265,9 @@ public class CG{
 								boolean collision_left = false;
 								while(!collision_left){
 									if (c-dt == -1) break;
-									if (ChessPiece.getEnum(board[r][c-dt]) != ChessPiece.EMPTY){
+									if (ChessPiece.getEnum(b[r][c-dt]) != ChessPiece.EMPTY){
 										//check for kill option
-										if (isWhite(ChessPiece.getEnum(board[r][c-dt]))){
+										if (isWhite(ChessPiece.getEnum(b[r][c-dt]))){
 											Cell toKill = new Cell(r, c-dt);
 											temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1288,9 +1288,9 @@ public class CG{
 									boolean collision_up = false;
 									while (!collision_up){
 										if (r-dt == -1) break;
-										if (ChessPiece.getEnum(board[r-dt][c]) != ChessPiece.EMPTY){
+										if (ChessPiece.getEnum(b[r-dt][c]) != ChessPiece.EMPTY){
 											//check for kill option
-											if (isWhite(ChessPiece.getEnum(board[r-dt][c]))){
+											if (isWhite(ChessPiece.getEnum(b[r-dt][c]))){
 												Cell toKill = new Cell(r-dt, c);
 												temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 												toKill.getRow()+" c "+toKill.getCol());
@@ -1312,9 +1312,9 @@ public class CG{
 									boolean collision_down = false;
 									while(!collision_down){
 										if (r+dt==8) break;
-										if (ChessPiece.getEnum(board[r+dt][c]) != ChessPiece.EMPTY){
+										if (ChessPiece.getEnum(b[r+dt][c]) != ChessPiece.EMPTY){
 											//check for kill option
-											if (isWhite(ChessPiece.getEnum(board[r+dt][c]))){
+											if (isWhite(ChessPiece.getEnum(b[r+dt][c]))){
 												Cell toKill = new Cell(r+dt, c);
 												temp.add(ChessPiece.BLACK_CASTLE.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 												toKill.getRow()+" c "+toKill.getCol());
@@ -1346,9 +1346,9 @@ public class CG{
 
 							////UP_2_LEFT_1////
 							if ((r-two >= 0) && (c-one >= 0)){	
-								if (ChessPiece.getEnum(board[r-two][c-one]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-two][c-one]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-two][c-one]))){
+									if (isWhite(ChessPiece.getEnum(b[r-two][c-one]))){
 										Cell toKill = new Cell(r-two, c-one);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1363,9 +1363,9 @@ public class CG{
 
 							////UP_1_LEFT_2////
 							if ((r-one >= 0) && (c-two >= 0)){	
-								if (ChessPiece.getEnum(board[r-one][c-two]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-one][c-two]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-one][c-two]))){
+									if (isWhite(ChessPiece.getEnum(b[r-one][c-two]))){
 										Cell toKill = new Cell(r-two, c-one);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1380,9 +1380,9 @@ public class CG{
 
 							////DOWN_1_LEFT_2////
 							if ((r+one <= 7) && (c-two >= 0)){	
-								if (ChessPiece.getEnum(board[r+one][c-two]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+one][c-two]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+one][c-two]))){
+									if (isWhite(ChessPiece.getEnum(b[r+one][c-two]))){
 										Cell toKill = new Cell(r+one, c-two);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1397,9 +1397,9 @@ public class CG{
 
 							////DOWN_2_LEFT_1////
 							if ((r+two <= 7) && (c-one >= 0)){	
-								if (ChessPiece.getEnum(board[r+two][c-one]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+two][c-one]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+two][c-one]))){
+									if (isWhite(ChessPiece.getEnum(b[r+two][c-one]))){
 										Cell toKill = new Cell(r+two, c-one);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1416,9 +1416,9 @@ public class CG{
 
 							////UP_2_RIGHT_1////
 							if ((r-two >= 0) && (c+one <= 7)){	
-								if (ChessPiece.getEnum(board[r-two][c+one]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-two][c+one]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-two][c+one]))){
+									if (isWhite(ChessPiece.getEnum(b[r-two][c+one]))){
 										Cell toKill = new Cell(r-two, c+one);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1433,9 +1433,9 @@ public class CG{
 
 							////UP_1_RIGHT_2////
 							if ((r-one >= 0) && (c+two <= 7)){	
-								if (ChessPiece.getEnum(board[r-one][c+two]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-one][c+two]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-one][c+two]))){
+									if (isWhite(ChessPiece.getEnum(b[r-one][c+two]))){
 										Cell toKill = new Cell(r-one, c+two);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1450,9 +1450,9 @@ public class CG{
 
 							////DOWN_1_RIGHT_2////
 							if ((r+one <= 7) && (c+two <= 7)){	
-								if (ChessPiece.getEnum(board[r+one][c+two]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+one][c+two]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+one][c+two]))){
+									if (isWhite(ChessPiece.getEnum(b[r+one][c+two]))){
 										Cell toKill = new Cell(r+one, c+two);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1467,9 +1467,9 @@ public class CG{
 
 							////DOWN_2_RIGHT_1////
 							if ((r+two <= 7) && (c+one <= 7)){	
-								if (ChessPiece.getEnum(board[r+two][c+one]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+two][c+one]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+two][c+one]))){
+									if (isWhite(ChessPiece.getEnum(b[r+two][c+one]))){
 										Cell toKill = new Cell(r+two, c+one);
 										temp.add(ChessPiece.BLACK_KNIGHT.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1493,9 +1493,9 @@ public class CG{
 							boolean collision_tl = false;
 							while (!collision_tl){
 								if ((c-dt == -1) || (r-dt == -1)) break;
-								if (ChessPiece.getEnum(board[r-dt][c-dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-dt][c-dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-dt][c-dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r-dt][c-dt]))){
 										Cell toKill = new Cell(r-dt, c-dt);
 										temp.add(ChessPiece.BLACK_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1513,9 +1513,9 @@ public class CG{
 							boolean collision_bl = false;
 							while(!collision_bl){
 								if ((c-dt == -1) || (r+dt == 8)) break;
-								if (ChessPiece.getEnum(board[r+dt][c-dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+dt][c-dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+dt][c-dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r+dt][c-dt]))){
 										Cell toKill = new Cell(r+dt, c-dt);
 										temp.add(ChessPiece.BLACK_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1533,9 +1533,9 @@ public class CG{
 							boolean collision_tr = false;
 							while(!collision_tr){
 								if ((c+dt == 8) ||(r-dt == -1)) break;
-								if (ChessPiece.getEnum(board[r-dt][c+dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-dt][c+dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-dt][c+dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r-dt][c+dt]))){
 										Cell toKill = new Cell(r-dt, c+dt);
 										temp.add(ChessPiece.BLACK_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1553,9 +1553,9 @@ public class CG{
 							boolean collision_br = false;
 							while (!collision_br){
 								if ((c+dt == 8) ||(r+dt == 8)) break;
-								if (ChessPiece.getEnum(board[r+dt][c+dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+dt][c+dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+dt][c+dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r+dt][c+dt]))){
 										Cell toKill = new Cell(r+dt, c+dt);
 										temp.add(ChessPiece.BLACK_BISHOP.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1582,9 +1582,9 @@ public class CG{
 							boolean collision_up = false;
 							while (!collision_up){
 								if (r-dt == -1) break;
-								if (ChessPiece.getEnum(board[r-dt][c]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-dt][c]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-dt][c]))){
+									if (isWhite(ChessPiece.getEnum(b[r-dt][c]))){
 										Cell toKill = new Cell(r-dt, c);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1603,9 +1603,9 @@ public class CG{
 							boolean collision_tr = false;
 							while(!collision_tr){
 								if ((c+dt == 8) ||(r-dt == -1)) break;
-								if (ChessPiece.getEnum(board[r-dt][c+dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-dt][c+dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-dt][c+dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r-dt][c+dt]))){
 										Cell toKill = new Cell(r-dt, c+dt);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1624,9 +1624,9 @@ public class CG{
 							boolean collision_right = false;
 							while (!collision_right){
 								if (c+dt == 8) break;
-								if (ChessPiece.getEnum(board[r][c+dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r][c+dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r][c+dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r][c+dt]))){
 										Cell toKill = new Cell(r, c+dt);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1644,9 +1644,9 @@ public class CG{
 							boolean collision_br = false;
 							while (!collision_br){
 								if ((c+dt == 8) ||(r+dt == 8)) break;
-								if (ChessPiece.getEnum(board[r+dt][c+dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+dt][c+dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+dt][c+dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r+dt][c+dt]))){
 										Cell toKill = new Cell(r+dt, c+dt);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1665,9 +1665,9 @@ public class CG{
 							boolean collision_down = false;
 							while(!collision_down){
 								if (r+dt==8) break;
-								if (ChessPiece.getEnum(board[r+dt][c]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+dt][c]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+dt][c]))){
+									if (isWhite(ChessPiece.getEnum(b[r+dt][c]))){
 										Cell toKill = new Cell(r+dt, c);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1685,9 +1685,9 @@ public class CG{
 							boolean collision_bl = false;
 							while(!collision_bl){
 								if ((c-dt == -1) || (r+dt == 8)) break;
-								if (ChessPiece.getEnum(board[r+dt][c-dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+dt][c-dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r+dt][c-dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r+dt][c-dt]))){
 										Cell toKill = new Cell(r+dt, c-dt);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1706,9 +1706,9 @@ public class CG{
 							boolean collision_left = false;
 							while(!collision_left){
 								if (c-dt == -1) break;
-								if (ChessPiece.getEnum(board[r][c-dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r][c-dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r][c-dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r][c-dt]))){
 										Cell toKill = new Cell(r, c-dt);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1726,9 +1726,9 @@ public class CG{
 							boolean collision_tl = false;
 							while (!collision_tl){
 								if ((c-dt == -1) || (r-dt == -1)) break;
-								if (ChessPiece.getEnum(board[r-dt][c-dt]) != ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-dt][c-dt]) != ChessPiece.EMPTY){
 									//check for kill option
-									if (isWhite(ChessPiece.getEnum(board[r-dt][c-dt]))){
+									if (isWhite(ChessPiece.getEnum(b[r-dt][c-dt]))){
 										Cell toKill = new Cell(r-dt, c-dt);
 										temp.add(ChessPiece.BLACK_QUEEN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 										toKill.getRow()+" c "+toKill.getCol());
@@ -1752,15 +1752,15 @@ public class CG{
 
 							//up
 							if (r-1 != -1){
-								if (ChessPiece.getEnum(board[r-1][c]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-1][c]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r-1, c);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r-1][c]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r-1][c])) &&
-										ChessPiece.getEnum(board[r-1][c]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r-1][c]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r-1][c])) &&
+										ChessPiece.getEnum(b[r-1][c]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r-1, c);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1769,15 +1769,15 @@ public class CG{
 								
 							//top-right
 							if ((c+1 != 8) && (r-1 != -1)){
-								if (ChessPiece.getEnum(board[r-1][c+1]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-1][c+1]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r-1, c+1);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r-1][c+1]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r-1][c+1])) &&
-										ChessPiece.getEnum(board[r-1][c+1]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r-1][c+1]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r-1][c+1])) &&
+										ChessPiece.getEnum(b[r-1][c+1]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r-1, c+1);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1786,15 +1786,15 @@ public class CG{
 
 							//right
 							if (c+1 != 8){
-								if (ChessPiece.getEnum(board[r][c+1]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r][c+1]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r, c+1);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r][c+1]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r][c+1])) &&
-										ChessPiece.getEnum(board[r][c+1]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r][c+1]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r][c+1])) &&
+										ChessPiece.getEnum(b[r][c+1]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r, c+1);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1803,15 +1803,15 @@ public class CG{
 
 							//bottom-right
 							if ((c+1 != 8) && (r+1 != 8)){
-								if (ChessPiece.getEnum(board[r+1][c+1]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+1][c+1]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r+1, c+1);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r+1][c+1]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r+1][c+1])) &&
-										ChessPiece.getEnum(board[r+1][c+1]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r+1][c+1]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r+1][c+1])) &&
+										ChessPiece.getEnum(b[r+1][c+1]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r+1, c+1);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1820,15 +1820,15 @@ public class CG{
 
 							//bottom
 							if (r+1 != 8){
-								if (ChessPiece.getEnum(board[r+1][c]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+1][c]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r+1, c);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r+1][c]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r+1][c])) &&
-										ChessPiece.getEnum(board[r+1][c]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r+1][c]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r+1][c])) &&
+										ChessPiece.getEnum(b[r+1][c]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r+1, c);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1837,15 +1837,15 @@ public class CG{
 
 							//bottom-left
 							if ((c-1 != -1) && (r+1 != 8)){
-								if (ChessPiece.getEnum(board[r+1][c-1]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r+1][c-1]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r+1, c-1);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" column "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r+1][c-1]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r+1][c-1])) &&
-										ChessPiece.getEnum(board[r+1][c-1]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r+1][c-1]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r+1][c-1])) &&
+										ChessPiece.getEnum(b[r+1][c-1]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r+1, c-1);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1854,15 +1854,15 @@ public class CG{
 
 							//left
 							if (c-1 != -1){
-								if (ChessPiece.getEnum(board[r][c-1]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r][c-1]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r, c-1);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r][c-1]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r][c-1])) &&
-										ChessPiece.getEnum(board[r][c-1]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r][c-1]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r][c-1])) &&
+										ChessPiece.getEnum(b[r][c-1]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r, c-1);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
@@ -1871,15 +1871,15 @@ public class CG{
 
 							//top-left
 							if ((c-1 != -1) && (r-1 != -1)){
-								if (ChessPiece.getEnum(board[r-1][c-1]) == ChessPiece.EMPTY){
+								if (ChessPiece.getEnum(b[r-1][c-1]) == ChessPiece.EMPTY){
 									//System.out.println("w_p move to row "+(r-1)+" column "+c);
 									Cell move = new Cell(r-1, c-1);
 									temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
 								}
-								else if (ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.EMPTY && 
-										isWhite(ChessPiece.getEnum(board[r-1][c-1])) &&
-										ChessPiece.getEnum(board[r-1][c-1]) != ChessPiece.WHITE_KING){
+								else if (ChessPiece.getEnum(b[r-1][c-1]) != ChessPiece.EMPTY && 
+										isWhite(ChessPiece.getEnum(b[r-1][c-1])) &&
+										ChessPiece.getEnum(b[r-1][c-1]) != ChessPiece.WHITE_KING){
 											Cell toKill = new Cell(r-1, c-1);
 											temp.add(ChessPiece.BLACK_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
 											toKill.getRow()+" c "+toKill.getCol());
