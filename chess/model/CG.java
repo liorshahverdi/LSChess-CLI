@@ -21,14 +21,14 @@ public class CG{
 			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
 			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}*/
 
-			{"-","-","-","b_k","-","-","-","-"},
-			{"-","-","-","-","-","-","-","-"},
-			{"-",  "-"  ,"-"  ,"w_p"  ,"w_p"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"b_k"},
+			{"-",  "-"  ,"-"  ,"-"  ,"w_q","-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"}
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"w_c"  ,"-"  ,"-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -2022,7 +2022,6 @@ public class CG{
 	}
 
 	public static ArrayList<String> edit(ArrayList<String> w){ 
-		System.out.println("IN EDIT");
 		ArrayList<String> temp = new ArrayList<String>();
 		for (String ah: w){
 			//System.out.println(ah);
@@ -2140,6 +2139,7 @@ public class CG{
 		
 		ArrayList<Cell> thisPiecesMoves = new ArrayList<Cell>();
 		ArrayList<String> p = ChessPiece.possibleMoves(board);
+		if (check) p = edit(p);
 		String[][] moveCopy = deepCopy(board);
 		for (String g : p){
 			//System.out.println("->"+g);
@@ -2175,13 +2175,10 @@ public class CG{
 			System.out.print("Type destination column number (0-7) "); dpc = c.nextInt();
 			selected_dest_piece = new Cell(dpr, dpc);	
 		}
-
-		if (check) {
-			
-		}
 		
 		board[dpr][dpc] = board[pr][pc];
 		board[pr][pc] = "-";
+		if (!willLeaveUsInCheck(board)) check = false;
 
 		ArrayList<String> post_move_ops = ChessPiece.possibleMoves(board);
 		for (String x: post_move_ops){
@@ -2221,10 +2218,17 @@ public class CG{
 		return false;
 	}
 
-	private static void startGame(){
+	/*private static void startGame(){
 		Scanner s = new Scanner(System.in);
 		while(!mate){
-			if (check) System.out.println("CHECK!!!");
+			if (check) {
+				if (sizeOfCurrentPlayerMoveList() == 0){
+					mate = true;
+					System.out.println("CHECK MATE!!");
+					break;
+				}
+				else System.out.println("CHECK!!!");
+			}
 			System.out.println(currentPlayer(cp));
 			printMat(board);
 			
@@ -2249,6 +2253,84 @@ public class CG{
 			cp++;
 			flipMat(board);
 		}
+	}*/
+
+	private static void waitForValInput(){
+		Scanner s = new Scanner(System.in);
+		System.out.println("Usage: Type\t'so' to see options\t'mp' to move piece."); String inpt = s.nextLine();
+		while ((!inpt.equals("so")) && (!inpt.equals("mp"))){//keep waiting for proper input
+			System.out.println("Not an option, friend. Type 'so' or 'mp'");
+			inpt = s.nextLine();
+		}
+			if (inpt.equals("so")){
+				while(inpt.equals("so")){
+					prepareForOpDisplay();
+					System.out.println("Type 'so' to see options or 'mp' to move piece");
+					inpt = s.nextLine();
+					while((!inpt.equals("so")) && (!inpt.equals("mp"))){
+						System.out.println("Not an option, friend. Type 'so' to see options or 'mp' to move piece");
+						inpt = s.nextLine();
+					}
+				}
+			}
+			if (inpt.equals("mp")){ prepareToMovePiece(); }
 	}
+
+	private static boolean gameOver(){
+		ArrayList<String> moovz = ChessPiece.possibleMoves(board);
+		if (check) moovz = edit(moovz);
+		/*if (moovz.size() == 0) {
+			System.out.println("CHECK MATE!");
+			String my_cp = currentPlayer(cp).substring(0,5); System.out.println(my_cp+ " won this match.");
+			return true;
+		}*/
+		int numOfCurrentPlayersMoves = 0;
+		for (String r : moovz){
+			String[] rprops = r.split(" "); String piece = rprops[0]; //System.out.println("->"+piece+"\t"+currentPlayer(cp)+" check?="+check);
+			if (currentPlayer(cp).equals("White's Turn")){
+				if (isWhiteStr(piece)) numOfCurrentPlayersMoves++;
+			}
+			if (currentPlayer(cp).equals("Black's Turn")){
+				if (isBlackStr(piece)) numOfCurrentPlayersMoves++;
+			}
+		}
+		if (numOfCurrentPlayersMoves == 0) return true;
+		if (check) System.out.println("CHECK!!!"); 
+		return false;
+	}
+
+	private static boolean isWhiteStr(String s){
+		return s.equals("WHITE_CASTLE") || s.equals("WHITE_KNIGHT") 
+			|| s.equals("WHITE_BISHOP") || s.equals("WHITE_QUEEN") 
+			|| s.equals("WHITE_KING") || s.equals("WHITE_PAWN") ;
+	}
+
+	private static boolean isBlackStr(String s){
+		return s.equals("BLACK_CASTLE") || s.equals("BLACK_KNIGHT") 
+			|| s.equals("BLACK_BISHOP") || s.equals("BLACK_QUEEN") 
+			|| s.equals("BLACK_KING") || s.equals("BLACK_PAWN") ;
+	}
+
+	private static void startGame(){
+		boolean keepPlaying = true;
+		while (keepPlaying){
+			System.out.println(currentPlayer(cp));
+			printMat(board);
+			if(gameOver()) {
+				keepPlaying = false;
+				if (currentPlayer(cp).equals("White's Turn")) System.out.println("Black won!");
+				if (currentPlayer(cp).equals("Black's Turn")) System.out.println("White won!");
+				break;
+			}
+			else {
+				waitForValInput();
+				cp++;
+				flipMat(board);
+			}
+			
+		}
+		System.out.println("Goodbye");
+	}
+
 	public static void main(String[] args){ CG m = new CG(); }
 }
