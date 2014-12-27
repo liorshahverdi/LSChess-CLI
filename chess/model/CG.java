@@ -27,7 +27,7 @@ public class CG{
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"w_c",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"w_c", "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"w_c"  ,"-"  ,"-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
@@ -2228,7 +2228,7 @@ public class CG{
 
 	private static boolean gameOver(){
 		ArrayList<String> moovz = ChessPiece.possibleMoves(board);
-		if (check) moovz = edit(moovz);
+		moovz = edit(moovz);
 		int numOfCurrentPlayersMoves = 0;
 		for (String r : moovz){
 			String[] rprops = r.split(" "); String piece = rprops[0]; //System.out.println("->"+piece+"\t"+currentPlayer(cp)+" check?="+check);
@@ -2263,8 +2263,8 @@ public class CG{
 			printMat(board);
 			if(gameOver()) {
 				keepPlaying = false;
-				if (currentPlayer(cp).equals("White's Turn")) System.out.println("Black won!");
-				if (currentPlayer(cp).equals("Black's Turn")) System.out.println("White won!");
+				if (currentPlayer(cp).equals("White's Turn")) System.out.println("Black won by checkmate.");
+				if (currentPlayer(cp).equals("Black's Turn")) System.out.println("White won by checkmate.");
 				break;
 			}
 			else {
