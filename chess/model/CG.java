@@ -5,7 +5,7 @@ public class CG{
 	public static boolean mate;
 	public static String[][] board;
 	public static int cp;//will be modded by 2 at each iteration
-	public ArrayList<ChessPiece> offBoard;
+	public static ArrayList<ChessPiece> offBoard;
 
 	public CG(){
 		check = false;
@@ -22,13 +22,13 @@ public class CG{
 			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}*/
 
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"b_k"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-","-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"w_q","-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"w_c"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"w_c", "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"w_c"  ,"-"  ,"-"}
+			{"-", "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"}
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -2163,8 +2163,7 @@ public class CG{
 			selected_dest_piece = new Cell(dpr, dpc);	
 		}
 		
-		board[dpr][dpc] = board[pr][pc];
-		board[pr][pc] = "-";
+		board[dpr][dpc] = board[pr][pc]; board[pr][pc] = "-";
 		if (!willLeaveUsInCheck(board)) check = false;
 
 		ArrayList<String> post_move_ops = ChessPiece.possibleMoves(board);
@@ -2239,7 +2238,15 @@ public class CG{
 				if (isBlackStr(piece)) numOfCurrentPlayersMoves++;
 			}
 		}
-		if (numOfCurrentPlayersMoves == 0) return true;
+		if (numOfCurrentPlayersMoves == 0 && !check){
+			if (currentPlayer(cp).equals("White's Turn")){
+				System.out.println("Stalemate! White has no moves and they're not in check. Very clever.."); System.exit(0);  
+			}
+			if (currentPlayer(cp).equals("Black's Turn")){
+				System.out.println("Stalemate! Black has no moves and they're not in check. Very clever.."); System.exit(0);	
+			}
+		}
+		if (numOfCurrentPlayersMoves == 0 && check) return true;
 		if (check) System.out.println("CHECK!!!"); 
 		return false;
 	}
