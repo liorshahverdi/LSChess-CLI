@@ -5,6 +5,12 @@ public class CG{
 	public static boolean mate;
 	public static String[][] board;
 	public static int cp;//will be modded by 2 at each iteration
+	
+	public static boolean castling_white_left;
+	public static boolean castling_white_right;
+	public static boolean castling_black_left;
+	public static boolean castling_black_right;
+
 	public static ArrayList<ChessPiece> offBoard;
 
 	public CG(){
@@ -67,6 +73,8 @@ public class CG{
 							int c = toGridFormat(c_char);//current piece's column
 							int r = toGridFormat(r_char);//current piece's row
 							if (white_turn){
+								//good morning
+
 								//check in front
 								if (r-1 >= 0){
 									if (ChessPiece.getEnum(b[r-1][c]) == ChessPiece.EMPTY){
