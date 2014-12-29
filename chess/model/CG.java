@@ -2204,6 +2204,8 @@ public class CG{
 		String nextMoveToAdd = pieceMoved +" from "+pr+" "+pc+" to "+dpr+" "+dpc; System.out.println("->"+nextMoveToAdd);
 		if (pieceMoved.equals("WHITE_KING")) {
 			//add white king castling logic here
+			//good morning
+			
 			castling_white_left = false; castling_white_right = false;
 		}
 		if (pieceMoved.equals("WHITE_CASTLE")){
