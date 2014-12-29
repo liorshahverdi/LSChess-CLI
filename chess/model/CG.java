@@ -12,8 +12,10 @@ public class CG{
 	public static boolean castling_black_right;
 
 	public static ArrayList<ChessPiece> offBoard;
+	public static ArrayList<String> movesPlayed;
 
 	public CG(){
+		movesPlayed = new ArrayList<String>();
 		check = false;
 		mate = false;
 		cp = 1;
@@ -2131,15 +2133,14 @@ public class CG{
 			selected_piece = new Cell(pr, pc);
 		}
 		String weirdStr = toWeirdForm(selected_piece);
-		
-		ArrayList<Cell> thisPiecesMoves = new ArrayList<Cell>();
-		ArrayList<String> p = ChessPiece.possibleMoves(board);
+		ArrayList<Cell> thisPiecesMoves = new ArrayList<Cell>();//list of cells
+		ArrayList<String> p = ChessPiece.possibleMoves(board);//list of moves
 		p = edit(p);
 		String[][] moveCopy = deepCopy(board);
-		for (String g : p){
+		for (String g : p){//for each move
 			//System.out.println("->"+g);
 			String[] move_props = g.split(" ");
-			if (move_props[2].equals(weirdStr)){ 
+			if (move_props[2].equals(weirdStr)){ //if src coordinates are equal 
 				//System.out.println("Were the same!\n"+g);
 				int thisRow = Integer.parseInt(move_props[5]);
 				int thisCol = Integer.parseInt(move_props[7]);
@@ -2172,6 +2173,9 @@ public class CG{
 		}
 		
 		board[dpr][dpc] = board[pr][pc]; board[pr][pc] = "-";
+		//we know dest and src of a piece that has just been moved
+		//narrow down to pawn moved 2 spaces from initial point with opponent's pawn adjacent.
+
 		if (!willLeaveUsInCheck(board)) check = false;
 
 		ArrayList<String> post_move_ops = ChessPiece.possibleMoves(board);
