@@ -12,9 +12,12 @@ public class CG{
 	public static boolean castling_black_right;
 
 	public static ArrayList<ChessPiece> offBoard;
+
+	public static ArrayList<String> actualMoves;
 	public static ArrayList<String[][]> movesPlayed;
 
 	public CG(){
+		actualMoves = new ArrayList<String>();
 		movesPlayed = new ArrayList<String[][]>();
 		check = false;
 		mate = false;
@@ -2174,8 +2177,13 @@ public class CG{
 		
 		board[dpr][dpc] = board[pr][pc]; board[pr][pc] = "-";
 		//we know dest and src of a piece that has just been moved
+		String pieceMovedStr = board[dpr][dpc]; ChessPiece pieceMoved = ChessPiece.getEnum(pieceMovedStr);
+		String nextMoveToAdd = pieceMoved +" from "+pr+" "+pc+" to "+dpr+" "+dpc; //System.out.println("->"+nextMoveToAdd);
+		actualMoves.add(nextMoveToAdd);
+
 		String[][] movePlayedCopy = deepCopy(board); movesPlayed.add(movePlayedCopy);
 		//System.out.println("Movesplayed size = "+movesPlayed.size());
+		
 		if (!willLeaveUsInCheck(board)) check = false;
 
 		ArrayList<String> post_move_ops = ChessPiece.possibleMoves(board);
@@ -2188,7 +2196,6 @@ public class CG{
 				else if (currentPlayer(cp).equals("Black's Turn") && pk == ChessPiece.WHITE_KING) check = true;
 			}
 		}
-
 		printMat(board);
 	}
 
