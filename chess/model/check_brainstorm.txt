@@ -53,3 +53,5 @@ Did that editing like a baws
 
 --------------------------------------------------------------------------
 Type 'so' to see options or 'mp' to move piece
+
+En passant (from French: in passing) is a move in chess.[1] It is a special pawn capture, that can only occur immediately after a pawn moves two ranks forward from its starting position, and an enemy pawn could have captured it had the pawn moved only one square forward. The opponent captures the just-moved pawn "as it passes" through the first square. The resulting position is the same as if the pawn had moved only one square forward and the enemy pawn had captured it normally.
