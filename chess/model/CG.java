@@ -17,6 +17,7 @@ public class CG{
 	public static ArrayList<String[][]> movesPlayed;
 
 	public CG(){
+		castling_black_right = true; castling_black_left = true; castling_white_right = true; castling_white_left = true;
 		actualMoves = new ArrayList<String>();
 		movesPlayed = new ArrayList<String[][]>();
 		check = false;
@@ -874,6 +875,15 @@ public class CG{
 									Cell move = new Cell(r, c+1);
 									temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
+									//CASTLING ADDED
+									if (r==7 && c==4){
+										if (ChessPiece.getEnum(b[r][c+2]) == ChessPiece.EMPTY && 
+											ChessPiece.getEnum(b[r][c+2]) == ChessPiece.WHITE_CASTLE && castling_white_right){
+												Cell m1 = new Cell(r,c+2);
+												temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
+												m1.getRow()+" c "+m1.getCol());
+										}
+									}
 								}
 								else if (ChessPiece.getEnum(b[r][c+1]) != ChessPiece.EMPTY && 
 										isBlack(ChessPiece.getEnum(b[r][c+1])) &&
@@ -942,6 +952,17 @@ public class CG{
 									Cell move = new Cell(r, c-1);
 									temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
 										move.getRow()+" c "+move.getCol());
+
+									//CASTLING ADDED
+									if (r==7 && c==4){
+										if (ChessPiece.getEnum(b[r][c-2]) == ChessPiece.EMPTY &&
+											ChessPiece.getEnum(b[r][c-3]) == ChessPiece.EMPTY &&
+											ChessPiece.getEnum(b[r][c-4]) == ChessPiece.WHITE_CASTLE && castling_white_left){
+												Cell m1 = new Cell(r,c-2);
+												temp.add(ChessPiece.WHITE_KING.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
+												m1.getRow()+" c "+m1.getCol());
+										}
+									}
 								}
 								else if (ChessPiece.getEnum(b[r][c-1]) != ChessPiece.EMPTY && 
 										isBlack(ChessPiece.getEnum(b[r][c-1])) &&
@@ -975,59 +996,61 @@ public class CG{
 							char r_char = ChessPiece.convertToCoords(i).charAt(1);
 							int c = toGridFormat(c_char);//current piece's column
 							int r = toGridFormat(r_char);//current piece's row
-							//check in front
-							if (r-1 >= 0){	
-								if (ChessPiece.getEnum(b[r-1][c]) == ChessPiece.EMPTY){
-									//System.out.println("w_p move to row "+(r-1)+" column "+c);
-									Cell move = new Cell(r-1, c);
-									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
-									move.getRow()+" c "+move.getCol());
-								}
-							}
-							//2 in front if pawn's first move
-							if (r == 6){
-								if (ChessPiece.getEnum(b[r-2][c]) == ChessPiece.EMPTY){
-									//System.out.println("w_p move to row "+(r-1)+" column "+c);
-									Cell move = new Cell(r-2, c);
-									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
-										move.getRow()+" c "+move.getCol());
-								}
-							}
-
-							//check if left-edge pawn
-							if (c == 0){
-								//only check top-right-diag for kill option
-								if ((ChessPiece.getEnum(b[r-1][c+1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(b[r-1][c+1]))){
-									Cell toKill = new Cell(r-1, c+1);
-									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
-									toKill.getRow()+" c "+toKill.getCol());
-								}
-							}
-							//check if right-edge pawn
-							else if (c == 7){
-								//only check top-left-diag for kill option
-								if ((ChessPiece.getEnum(b[r-1][c-1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(b[r-1][c-1]))){
-									Cell toKill = new Cell(r-1, c-1);
-									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
-									toKill.getRow()+" c "+toKill.getCol());
-								}
-							}
-							else{
-								//check top-left diagonal FOR KILL OPTION
-								if ((ChessPiece.getEnum(b[r-1][c-1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r-1][c-1]))){
-									Cell toKill = new Cell(r-1, c-1);
-									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
-									toKill.getRow()+" c "+toKill.getCol());
-								}
 								
-								//check top-right diagonal for KILL OPTION
-								if ((ChessPiece.getEnum(b[r-1][c+1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r-1][c+1]))){
-									Cell toKill = new Cell(r-1, c+1);
-									temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
-									toKill.getRow()+" c "+toKill.getCol());
+							if (black_turn){
+								//check in front
+								if (r-1 >= 0){	
+									if (ChessPiece.getEnum(b[r-1][c]) == ChessPiece.EMPTY){
+										//System.out.println("w_p move to row "+(r-1)+" column "+c);
+										Cell move = new Cell(r-1, c);
+										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
+										move.getRow()+" c "+move.getCol());
+									}
+								}
+								//2 in front if pawn's first move
+								if (r == 6){
+									if (ChessPiece.getEnum(b[r-2][c]) == ChessPiece.EMPTY){
+										//System.out.println("w_p move to row "+(r-1)+" column "+c);
+										Cell move = new Cell(r-2, c);
+										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" goto r "+
+											move.getRow()+" c "+move.getCol());
+									}
+								}
+
+								//check if left-edge pawn
+								if (c == 0){
+									//only check top-right-diag for kill option
+									if ((ChessPiece.getEnum(b[r-1][c+1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(b[r-1][c+1]))){
+										Cell toKill = new Cell(r-1, c+1);
+										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
+										toKill.getRow()+" c "+toKill.getCol());
+									}
+								}
+								//check if right-edge pawn
+								else if (c == 7){
+									//only check top-left-diag for kill option
+									if ((ChessPiece.getEnum(b[r-1][c-1]) != ChessPiece.EMPTY) && isWhite(ChessPiece.getEnum(b[r-1][c-1]))){
+										Cell toKill = new Cell(r-1, c-1);
+										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
+										toKill.getRow()+" c "+toKill.getCol());
+									}
+								}
+								else{
+									//check top-left diagonal FOR KILL OPTION
+									if ((ChessPiece.getEnum(b[r-1][c-1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r-1][c-1]))){
+										Cell toKill = new Cell(r-1, c-1);
+										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
+										toKill.getRow()+" c "+toKill.getCol());
+									}
+									
+									//check top-right diagonal for KILL OPTION
+									if ((ChessPiece.getEnum(b[r-1][c+1])) != ChessPiece.EMPTY && isWhite(ChessPiece.getEnum(b[r-1][c+1]))){
+										Cell toKill = new Cell(r-1, c+1);
+										temp.add(ChessPiece.BLACK_PAWN.toString()+" @ "+ ChessPiece.convertToCoords(i) +" kill r "+
+										toKill.getRow()+" c "+toKill.getCol());
+									}
 								}
 							}
-
 							if (!black_turn){
 								//compute opposite turn's moves
 
@@ -2178,7 +2201,23 @@ public class CG{
 		board[dpr][dpc] = board[pr][pc]; board[pr][pc] = "-";
 		//we know dest and src of a piece that has just been moved
 		String pieceMovedStr = board[dpr][dpc]; ChessPiece pieceMoved = ChessPiece.getEnum(pieceMovedStr);
-		String nextMoveToAdd = pieceMoved +" from "+pr+" "+pc+" to "+dpr+" "+dpc; //System.out.println("->"+nextMoveToAdd);
+		String nextMoveToAdd = pieceMoved +" from "+pr+" "+pc+" to "+dpr+" "+dpc; System.out.println("->"+nextMoveToAdd);
+		if (pieceMoved.equals("WHITE_KING")) {
+			//add white king castling logic here
+			castling_white_left = false; castling_white_right = false;
+		}
+		if (pieceMoved.equals("WHITE_CASTLE")){
+			if (pr==7 && pc==0) castling_white_left = false;//left castle
+			if (pr==7 && pc==7) castling_white_right = false;//right castle
+		}
+		if (pieceMoved.equals("BLACK_KING")) {
+			//add white king castling logic here
+			castling_black_left = false; castling_black_right = false;
+		}
+		if (pieceMoved.equals("BLACK_CASTLE")){
+			if (pr==7 && pc==0) castling_black_left = false;//left castle
+			if (pr==7 && pc==7) castling_black_right = false;//right castle
+		}
 		actualMoves.add(nextMoveToAdd);
 
 		String[][] movePlayedCopy = deepCopy(board); movesPlayed.add(movePlayedCopy);
