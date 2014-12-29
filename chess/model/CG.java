@@ -12,31 +12,31 @@ public class CG{
 	public static boolean castling_black_right;
 
 	public static ArrayList<ChessPiece> offBoard;
-	public static ArrayList<String> movesPlayed;
+	public static ArrayList<String[][]> movesPlayed;
 
 	public CG(){
-		movesPlayed = new ArrayList<String>();
+		movesPlayed = new ArrayList<String[][]>();
 		check = false;
 		mate = false;
 		cp = 1;
 		board = new String[][]{
-			/*{"b_c","b_h","b_b","b_k","b_q","b_b","b_h","b_c"},
+			{"b_c","b_h","b_b","b_k","b_q","b_b","b_h","b_c"},
 			{"b_p","b_p","b_p","b_p","b_p","b_p","b_p","b_p"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"w_p","w_p","w_p","w_p","w_p","w_p","w_p","w_p"},
-			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}*/
+			{"w_c","w_h","w_b","w_k","w_q","w_b","w_h","w_c"}
 
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"b_k"},
-			{"-",  "-"  ,"-"  ,"-"  ,"w_q","-"  ,"-"  ,"-"},
+			/*{"-",  "b_k"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"-"  ,"-"  ,"-","-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"w_c"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
+			{"-",  "-"  ,"w_b"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
 			{"-", "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"},
-			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"}
+			{"-",  "-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"  ,"-"}*/
 		};
 		offBoard = new ArrayList<ChessPiece>();
 		//printMat(board);
@@ -2174,8 +2174,8 @@ public class CG{
 		
 		board[dpr][dpc] = board[pr][pc]; board[pr][pc] = "-";
 		//we know dest and src of a piece that has just been moved
-		//narrow down to pawn moved 2 spaces from initial point with opponent's pawn adjacent.
-
+		String[][] movePlayedCopy = deepCopy(board); movesPlayed.add(movePlayedCopy);
+		//System.out.println("Movesplayed size = "+movesPlayed.size());
 		if (!willLeaveUsInCheck(board)) check = false;
 
 		ArrayList<String> post_move_ops = ChessPiece.possibleMoves(board);
