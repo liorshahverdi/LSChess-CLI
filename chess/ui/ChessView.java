@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ChessView extends JFrame {
+public class ChessView extends JFrame implements ActionListener{
 	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 850;
 	private static JPanel gui_board;
