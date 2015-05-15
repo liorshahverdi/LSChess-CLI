@@ -39,3 +39,4 @@ public class ChessGUI extends JFrame implements ActionListener{
 		return temp;
 	}
 }
+dkf;asdkfj;aldkfj
